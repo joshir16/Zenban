@@ -10,6 +10,7 @@
   --color-dark-light: #3d3d3d;
 
   --breakpoint-500px: 500px;
+  --breakpoint-200px: 200px;
 }
 
 @layer base {

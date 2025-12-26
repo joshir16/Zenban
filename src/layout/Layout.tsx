@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import PageNav from "../components/PageNav";
-import { Header } from "../components/Header";
 
 export default function Layout() {
   return (
