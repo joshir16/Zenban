@@ -15,7 +15,7 @@ export default function PageNav() {
           <li key={item} className="w-full">
             <NavLink
               to={""}
-              className={`p-1 pr-2 text-sm sm:text-md md:text-base sm:pr-5 border-b w-full hover:border-b-amber-500 transition-colors`}
+              className={`p-1 pr-2 text-sm sm:text-md md:text-base sm:pr-5 border-b w-full hover:text-amber-500 hover:border-b-amber-500 transition-colors`}
             >
               {item}
             </NavLink>
