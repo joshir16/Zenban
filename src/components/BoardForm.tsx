@@ -1,39 +1,16 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
 
 export default function BoardForm() {
-  const [newBoardTitle, setNewBoardTitle] = useState("");
-  const navigate = useNavigate();
-
-  function handleCreateBoard() {
-    if (newBoardTitle.trim()) {
-      const id = crypto.randomUUID();
-      //TO DO id and board to redux
-
-      navigate(`/board/${newBoardTitle}`);
-    }
-  }
-
   return (
-    <form
-      onSubmit={handleCreateBoard}
-      className="flex flex-col sm:flex-row md:w-full md:flex-row lg:w-2/3   justify-center items-center gap-2"
-    >
+    <form className="flex flex-row w-full text-sm sm:text-md md:text-base border border-neutral-500 rounded-sm ">
       <input
         type="text"
         placeholder="Board Title"
-        className="border border-amber-500 px-2 py-1 outline-0 md:w-full"
-        onChange={(e) => setNewBoardTitle(e.target.value)}
-        value={newBoardTitle}
+        className="flex-1 text-neutral-400 p-1 outline-0"
       />
-      <div className="flex gap-2 w-full">
-        <button
-          type="submit"
-          className="border font-bold px-10 py-1 border-amber-500 transition-all hover:bg-amber-500 hover:text-neutral-950"
-        >
-          Create
-        </button>
-      </div>
+      <button type="submit">
+        <Plus className="size-7 text-amber-300 hover:text-amber-500 px-1" />
+      </button>
     </form>
   );
 }

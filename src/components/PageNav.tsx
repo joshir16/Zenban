@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import BoardForm from "./BoardForm";
 
 export default function PageNav() {
   const navItems = ["React", "JavaScript", "Redux", "Frontend System Design"];
@@ -8,8 +9,8 @@ export default function PageNav() {
         <span className="text-amber-500">Zen</span>
         ban
       </h1>
-      {/* <h3 className="text-1xl font-black">my boards</h3> */}
-      <ul className="flex flex-1 flex-col gap-5 p-2 sm:p-5">
+
+      <ul className="flex flex-col gap-5 p-2 sm:p-5">
         {navItems.map((item) => (
           <li key={item} className="w-full">
             <NavLink
@@ -21,6 +22,8 @@ export default function PageNav() {
           </li>
         ))}
       </ul>
+
+      <BoardForm />
     </nav>
   );
 }
