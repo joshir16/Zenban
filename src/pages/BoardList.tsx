@@ -1,4 +1,3 @@
-import { Header } from "../components/Header";
 import BoardCard from "../components/BoardCard";
 
 export default function BoardList() {
