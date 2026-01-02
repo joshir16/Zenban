@@ -2,13 +2,16 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createBoard } from "../store/slice/boardSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardForm() {
   const dispatch = useDispatch();
   const [newBoard, setNewBoard] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!newBoard) return null;
     const board = {
       id: crypto.randomUUID(),
       name: newBoard,
@@ -16,6 +19,7 @@ export default function BoardForm() {
       cards: [],
     };
     dispatch(createBoard(board));
+    navigate(`/boards/${board.id}`);
     setNewBoard("");
   }
 
@@ -26,7 +30,7 @@ export default function BoardForm() {
     >
       <input
         type="text"
-        placeholder="Board Title"
+        placeholder="New Board Title"
         value={newBoard}
         onChange={(e) => setNewBoard(e.target.value)}
         className="flex-1 text-neutral-400 outline-0  border-b border-neutral-500"

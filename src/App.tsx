@@ -7,7 +7,6 @@ import CardDetails from "./pages/CardDetails";
 
 const routes = [
   {
-    path: "/",
     element: <Layout />,
     errorElement: <NotFoundPage />,
     children: [

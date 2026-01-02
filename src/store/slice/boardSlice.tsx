@@ -34,9 +34,11 @@ const initialData = [
   },
 ];
 
+const initialState = [];
+
 const boardSlice = createSlice({
   name: "boards",
-  initialState: initialData,
+  initialState: initialState,
   reducers: {
     createBoard(state, action) {
       state.push(action.payload);
