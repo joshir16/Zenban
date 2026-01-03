@@ -33,10 +33,10 @@ export default function BoardForm() {
         placeholder="New Board Title"
         value={newBoard}
         onChange={(e) => setNewBoard(e.target.value)}
-        className="flex-1 text-neutral-400 outline-0  border-b border-neutral-500"
+        className="flex-1 text-text outline-0  border-b border-neutral-500"
       />
       <button type="submit">
-        <Plus className="size-7 text-amber-300 hover:text-amber-500 px-1 border-b border-neutral-500" />
+        <Plus className="size-7 text-text hover:text-primary px-1 border-b border-neutral-500" />
       </button>
     </form>
   );

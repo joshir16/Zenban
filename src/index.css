@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #ffd700;
-  --color-primary-dark: #b8860b;
-  --color-primary-light: #ffeb3b;
-
-  --color-dark: #1a1a1a;
-  --color-dark-lighter: #2d2d2d;
-  --color-dark-light: #3d3d3d;
+  --color-background: #f9fafb;
+  --color-board: #f3f4f6;
+  --color-columns: #ffffff;
+  --color-cards: #374151;
+  --color-text: #2a2a2a;
+  --color-primary: #10b981;
 
   --breakpoint-500px: 500px;
   --breakpoint-200px: 200px;
@@ -15,14 +14,10 @@
 
 @layer base {
   body {
-    @apply text-gray-100 bg-dark 2xl:max-w-screen-2xl 2xl:mx-auto;
+    @apply text-text 2xl:max-w-screen-2xl 2xl:mx-auto;
   }
 
   button {
     @apply cursor-pointer;
   }
-}
-
-body {
-  position: relative;
 }
