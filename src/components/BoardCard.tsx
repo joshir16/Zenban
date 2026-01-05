@@ -5,7 +5,7 @@ export default function BoardCard({ board }) {
   return (
     <Link
       to={`/boards/${board.id}`}
-      className="flex flex-col w-full border p-5 bg-board rounded-md text-text"
+      className="flex flex-col w-full p-5 bg-card rounded-xl bg-cards text-text hover:bg-accent hover:text-neutral-900 transition-all duration-300"
     >
       <div className="flex flex-col flex-1 justify-center items-center p-3">
         <Layout className="size-8" />

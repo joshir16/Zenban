@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #f9fafb;
-  --color-board: #f3f4f6;
-  --color-columns: #ffffff;
-  --color-cards: #374151;
-  --color-text: #2a2a2a;
-  --color-primary: #10b981;
+  --color-background: #1a1a1a;
+  --color-board: #202020;
+
+  --color-columns: #2a2a2a;
+  --color-cards: #2f2f2f;
+
+  --color-text: #b0b0b0;
+
+  --color-accent: #10b981;
+  --color-darkgreen: #002211;
 
   --breakpoint-500px: 500px;
   --breakpoint-200px: 200px;
@@ -20,4 +24,9 @@
   button {
     @apply cursor-pointer;
   }
+}
+
+.active {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
 }

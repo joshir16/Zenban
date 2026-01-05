@@ -13,7 +13,7 @@ export default function BoardList() {
           <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
               {boardsItem.map((board) => (
-                <BoardCard board={board} />
+                <BoardCard board={board} key={board.id} />
               ))}
             </div>
           </>

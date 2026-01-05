@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialData = [
   {
     id: "board-1",
-    name: "ZenBan V1",
+    name: "React",
 
     // 1. COLUMNS (The Containers)
     columns: [
@@ -43,8 +43,12 @@ const boardSlice = createSlice({
     createBoard(state, action) {
       state.push(action.payload);
     },
+
+    deleteBoard(state, action) {
+      return state.filter((board) => board.id !== action.payload);
+    },
   },
 });
 
-export const { createBoard } = boardSlice.actions;
+export const { createBoard, deleteBoard } = boardSlice.actions;
 export default boardSlice.reducer;
