@@ -1,51 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { Board } from "../../typo/type";
 
-const initialData = [
-  {
-    id: "board-1",
-    name: "React",
-
-    // 1. COLUMNS (The Containers)
-    columns: [
-      { id: "col-todo", title: "To Do", color: "#ef4444" },
-      { id: "col-inprogress", title: "In Progress", color: "#ef4444" },
-      { id: "col-done", title: "Done", color: "#10b981" },
-    ],
-
-    // 2. CARDS (The Content)
-    cards: [
-      // --- Card 1 ---
-      {
-        id: "c1",
-        columnId: "col-todo", // <--- Links to "To Do"
-        title: "Setup React Repo",
-        priority: "high",
-        tags: ["DevOps"],
-      },
-      // --- Card 2 ---
-      {
-        id: "c2",
-        columnId: "col-done", // <--- Links to "Done"
-        title: "Meditate",
-        priority: "zen",
-        tags: ["Health"],
-      },
-    ],
-  },
-];
-
-const initialState = [];
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem("zenban-boards");
+    if (serializedState === null) return []; // No data? Use defaults
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.warn("Could not load from localStorage", e);
+    return [];
+  }
+};
 
 const boardSlice = createSlice({
   name: "boards",
-  initialState: initialData,
+  initialState: loadFromLocalStorage,
   reducers: {
     createBoard(state, action) {
       state.push(action.payload);
     },
 
     deleteBoard(state, action) {
-      return state.filter((board) => board.id !== action.payload);
+      return state.filter((board: Board) => board.id !== action.payload);
     },
   },
 });

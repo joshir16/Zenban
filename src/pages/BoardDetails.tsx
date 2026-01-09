@@ -1,4 +1,3 @@
-import Card from "../components/Card";
 import Columns from "../components/Columns";
 import { Header } from "../components/Header";
 

@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { createBoard } from "../store/slice/boardSlice";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ export default function BoardForm() {
   const [newBoard, setNewBoard] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newBoard) return null;
     const board = {

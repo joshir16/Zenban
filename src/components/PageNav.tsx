@@ -1,11 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
 import BoardForm from "./BoardForm";
 import { useSelector } from "react-redux";
+import type { Board } from "../typo/type";
+import type { RootState } from "../store/store";
+
+interface boardItem {
+  item: Board;
+}
 
 export default function PageNav() {
   // const navItems = ["React", "JavaScript", "Redux", "Frontend System Design"];
 
-  const navItems = useSelector((state) => state.boards);
+  const navItems = useSelector((state: RootState) => state.boards);
   console.log(navItems);
 
   // if (navItems.length < 1) return null;
@@ -22,7 +28,7 @@ export default function PageNav() {
       {navItems.length > 0 && (
         <>
           <ul className="flex flex-col gap-5 p-2 sm:p-5">
-            {navItems.map((item) => (
+            {navItems.map(({ item }: boardItem) => (
               <li key={item.id} className="w-full">
                 <NavLink
                   to={`/boards/${item.id}`}

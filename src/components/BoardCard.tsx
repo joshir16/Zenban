@@ -1,7 +1,12 @@
 import { Layout } from "lucide-react";
 import { Link } from "react-router-dom";
+import type { Board } from "../typo/type";
 
-export default function BoardCard({ board }) {
+interface BoardProp {
+  board: Board;
+}
+
+export default function BoardCard({ board }: BoardProp) {
   return (
     <Link
       to={`/boards/${board.id}`}
