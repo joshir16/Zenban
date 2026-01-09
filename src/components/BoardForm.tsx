@@ -15,7 +15,6 @@ export default function BoardForm() {
     const board = {
       id: crypto.randomUUID(),
       name: newBoard,
-      columns: [],
       cards: [],
     };
     dispatch(createBoard(board));

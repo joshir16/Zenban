@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Board } from "../../typo/type";
 
-const loadFromLocalStorage = () => {
+type BoardsState = Board[];
+
+const loadFromLocalStorage = (): BoardsState => {
   try {
     const serializedState = localStorage.getItem("zenban-boards");
     if (serializedState === null) return []; // No data? Use defaults

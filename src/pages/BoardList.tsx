@@ -2,11 +2,6 @@ import { useSelector } from "react-redux";
 import BoardCard from "../components/BoardCard";
 import Welcome from "./Welcome";
 import type { RootState } from "../store/store";
-import type { Board } from "../typo/type";
-
-interface board {
-  board: Board;
-}
 
 export default function BoardList() {
   const boardsItem = useSelector((state: RootState) => state.boards);
@@ -18,7 +13,7 @@ export default function BoardList() {
         {boardsItem.length > 0 ? (
           <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
-              {boardsItem.map(({ board }: board) => (
+              {boardsItem.map((board) => (
                 <BoardCard board={board} key={board.id} />
               ))}
             </div>
