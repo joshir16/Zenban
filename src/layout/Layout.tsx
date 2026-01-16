@@ -3,7 +3,7 @@ import PageNav from "../components/PageNav";
 
 export default function Layout() {
   return (
-    <main className="h-screen w-screen flex flex-1 overflow-hidden bg-background">
+    <main className="h-screen w-screen flex flex-1 overflow-hidden bg-background-900">
       <PageNav />
       <div className="flex-1 overflow-y-hidden">
         <Outlet />

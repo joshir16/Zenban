@@ -1,8 +1,11 @@
 export interface Card {
-  id: string;
-  name: string;
+  boardId: string;
+  cardId: string;
+  cardTitle: string;
+  description: string;
   priority: string;
   tags: [];
+  createdOn: string;
 }
 
 export interface Board {

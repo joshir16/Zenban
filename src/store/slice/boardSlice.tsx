@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { Board } from "../../typo/type";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Board, Card } from "../../typo/type";
 
 type BoardsState = Board[];
 
@@ -25,8 +25,39 @@ const boardSlice = createSlice({
     deleteBoard(state, action) {
       return state.filter((board: Board) => board.id !== action.payload);
     },
+
+    createCard: {
+      prepare(
+        boardId: string,
+        cardId: string,
+        cardTitle: string,
+        cardDescription: string,
+        priority: string,
+        tags: []
+      ) {
+        return {
+          payload: {
+            boardId,
+            cardId,
+            cardTitle,
+            description: cardDescription,
+            priority,
+            tags,
+            createdOn: new Date().toISOString(),
+          },
+        };
+      },
+
+      reducer(state, action: PayloadAction<Card>) {
+        const currentBoard = state.find(
+          (board: Board) => board.id === action.payload.boardId
+        );
+        console.log(currentBoard);
+        currentBoard?.cards.push(action.payload);
+      },
+    },
   },
 });
 
-export const { createBoard, deleteBoard } = boardSlice.actions;
+export const { createBoard, deleteBoard, createCard } = boardSlice.actions;
 export default boardSlice.reducer;
