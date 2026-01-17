@@ -21,7 +21,7 @@ export function Header() {
   }
 
   return (
-    <header className="w-full flex justify-between items-center py-3 px-5 border-b bg-board border-accent">
+    <header className="w-full flex justify-between items-center py-3 px-5 border-b bg-background-700 border-accent">
       <div className="flex justify-center items-center gap-5">
         <button onClick={() => navigate(-1)}>
           <ArrowLeft size={35} className="bg-background-500 rounded-full p-2" />

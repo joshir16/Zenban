@@ -10,7 +10,7 @@ export default function PageNav() {
   console.log(navItems);
 
   return (
-    <nav className="flex flex-col gap-3 overflow-y-auto min-w-1/2 sm:min-w-35 md:min-w-60 p-2">
+    <nav className="flex flex-col gap-3 overflow-y-auto min-w-1/2 sm:min-w-35 md:min-w-60 p-2 bg-background-700">
       <Link to="/">
         <h1 className="text-lg sm:text-2xl md:text-4xl lowercase font-black text-center mb-5">
           <span className="text-accent">Zen</span>

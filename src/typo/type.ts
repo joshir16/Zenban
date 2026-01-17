@@ -4,7 +4,7 @@ export interface Card {
   cardTitle: string;
   description: string;
   priority: string;
-  tags: [];
+  tags: string[];
   createdOn: string;
 }
 

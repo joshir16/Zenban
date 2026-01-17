@@ -31,7 +31,7 @@
 
 @layer components {
   .input {
-    @apply min-w-120 rounded-lg border border-background-500 px-2 py-1 text-sm placeholder:text-text transition-all duration-300 focus:outline-none focus:ring focus:ring-accent md:px-3 md:py-2;
+    @apply w-full rounded-lg border border-background-500 px-2 py-1 text-sm placeholder:text-text transition-all duration-300 focus:outline-none focus:ring focus:ring-accent md:px-3 md:py-2;
   }
 
   .primaryButton {

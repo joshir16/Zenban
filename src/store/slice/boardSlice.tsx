@@ -33,7 +33,9 @@ const boardSlice = createSlice({
         cardTitle: string,
         cardDescription: string,
         priority: string,
-        tags: []
+        creationDate: string,
+        columnId: string,
+        tags: string[]
       ) {
         return {
           payload: {
@@ -42,8 +44,9 @@ const boardSlice = createSlice({
             cardTitle,
             description: cardDescription,
             priority,
+            createdOn: new Date(creationDate).toISOString(),
+            columnId,
             tags,
-            createdOn: new Date().toISOString(),
           },
         };
       },
@@ -53,11 +56,38 @@ const boardSlice = createSlice({
           (board: Board) => board.id === action.payload.boardId
         );
         console.log(currentBoard);
+
         currentBoard?.cards.push(action.payload);
+      },
+    },
+
+    deleteCard: {
+      prepare(boardId: string, cardId: string) {
+        return {
+          payload: {
+            boardId,
+            cardId,
+          },
+        };
+      },
+
+      reducer(
+        state,
+        action: PayloadAction<{ boardId: string; cardId: string }>
+      ) {
+        const board = state.find(
+          (board: Board) => board.id === action.payload.boardId
+        );
+        if (board) {
+          board.cards = board.cards.filter(
+            (card) => card.cardId !== action.payload.cardId
+          );
+        }
       },
     },
   },
 });
 
-export const { createBoard, deleteBoard, createCard } = boardSlice.actions;
+export const { createBoard, deleteBoard, createCard, deleteCard } =
+  boardSlice.actions;
 export default boardSlice.reducer;
