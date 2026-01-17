@@ -1,41 +1,35 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import BoardForm from "./BoardForm";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
+import Logo from "./Logo";
 
 export default function PageNav() {
-  // const navItems = ["React", "JavaScript", "Redux", "Frontend System Design"];
-
   const navItems = useSelector((state: RootState) => state.boards);
-  console.log(navItems);
 
   return (
-    <nav className="flex flex-col gap-3 overflow-y-auto min-w-1/2 sm:min-w-35 md:min-w-60 p-2 bg-background-700">
-      <Link to="/">
-        <h1 className="text-lg sm:text-2xl md:text-4xl lowercase font-black text-center mb-5">
-          <span className="text-accent">Zen</span>
-          ban
-        </h1>
-      </Link>
+    <aside className="hidden sm:flex flex-col gap-7 overflow-y-auto bg-background-700  p-2 z-50 min-w-1/2 sm:min-w-35 md:min-w-60">
+      <Logo />
 
-      {navItems.length > 0 && (
-        <>
-          <ul className="flex flex-col gap-5 p-2 sm:p-5">
-            {navItems.map((item) => (
-              <li key={item.id} className="w-full">
-                <NavLink
-                  to={`/boards/${item.id}`}
-                  className={`p-1 pr-2 text-sm sm:text-md md:text-base sm:pr-5 w-full hover:text-accent font-bold transition-all duration-200`}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-
-      <BoardForm />
-    </nav>
+      <nav className=" ">
+        {navItems.length > 0 && (
+          <>
+            <ul className="flex flex-col gap-5 p-2 sm:p-5">
+              {navItems.map((item) => (
+                <li key={item.id} className="w-full">
+                  <NavLink
+                    to={`/boards/${item.id}`}
+                    className={`p-1 pr-2 text-sm sm:text-md md:text-base sm:pr-5 w-full hover:text-accent font-bold transition-all duration-200`}
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        <BoardForm />
+      </nav>
+    </aside>
   );
 }

@@ -1,4 +1,4 @@
-import { Layout } from "lucide-react";
+import { FolderOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Board } from "../typo/type";
 
@@ -10,15 +10,17 @@ export default function BoardCard({ board }: BoardProp) {
   return (
     <Link
       to={`/boards/${board.id}`}
-      className="flex flex-col w-full p-5 bg-card rounded-xl bg-cards text-text hover:bg-accent hover:text-neutral-900 transition-all duration-300"
+      className="group flex flex-col w-full p-5 bg-background-900 rounded-xl border border-background-500 text-text hover:bg-background-700 hover:border-accent hover:text-accent transition-all duration-400 ease-in-out"
     >
-      <div className="flex flex-col flex-1 justify-center items-center p-3">
-        <Layout className="size-8" />
-        <h3 className="text-2xl font-bold">{board.name}</h3>
+      <div className="flex flex-col flex-1 gap-2 justify-center items-center p-3 group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out">
+        <FolderOpen size={50} />
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out">
+          {board.name}
+        </h3>
+        <p className="flex-1 flex justify-center items-center text-sm font-medium group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out">
+          {board.cards.length} Cards
+        </p>
       </div>
-      <p className="flex-1 flex justify-center items-center text-sm font-medium">
-        {board.cards.length} Cards
-      </p>
     </Link>
   );
 }

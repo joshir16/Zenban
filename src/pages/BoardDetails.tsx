@@ -14,12 +14,12 @@ export default function BoardDetails() {
   const cards = currentBoard?.cards ?? [];
 
   return (
-    <div className="w-full h-screen bg-board overflow-none">
+    <div className="w-full h-screen bg-board">
       <Header />
 
       {cards.length ? (
         <>
-          <section className="p-5 sm:p-3 flex flex-wrap gap-3 overflow-auto">
+          <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 h-full overflow-auto">
             {cards.map((card) => (
               <Card card={card} key={card.cardId} />
             ))}

@@ -52,12 +52,23 @@ const boardSlice = createSlice({
       },
 
       reducer(state, action: PayloadAction<Card>) {
-        const currentBoard = state.find(
+        const currentBoardCards = state.find(
           (board: Board) => board.id === action.payload.boardId
-        );
-        console.log(currentBoard);
+        )?.cards;
 
-        currentBoard?.cards.push(action.payload);
+        if (
+          currentBoardCards?.find(
+            (item) => item.cardId === action.payload.cardId
+          )
+        ) {
+          const card = currentBoardCards?.find(
+            (item) => item.cardId === action.payload.cardId
+          );
+          card!.cardTitle = action.payload.cardTitle;
+          card!.description = action.payload.description;
+        } else {
+          currentBoardCards?.push(action.payload);
+        }
       },
     },
 

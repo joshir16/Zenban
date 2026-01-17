@@ -1,7 +1,8 @@
 import { useState, type FormEvent, type MouseEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCard, deleteCard } from "../store/slice/boardSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import type { RootState } from "../store/store";
 
 function getCurrentTime(date: Date | string) {
   const dateTime = new Intl.DateTimeFormat("en-US", {
@@ -18,8 +19,17 @@ export default function CardForm() {
   const { boardId, cardId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [cardTitle, setCardTitle] = useState("");
-  const [cardDescription, setCardDescription] = useState("");
+
+  const cardDetails = useSelector((state: RootState) =>
+    state.boards
+      .find((board) => board.id === boardId)
+      ?.cards.find((card) => card.cardId === cardId)
+  );
+
+  const [cardTitle, setCardTitle] = useState(cardDetails?.cardTitle || "");
+  const [cardDescription, setCardDescription] = useState(
+    cardDetails?.description || ""
+  );
 
   const creationDate: Date = new Date();
 

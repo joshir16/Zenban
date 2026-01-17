@@ -15,7 +15,6 @@ store.subscribe(() => {
     // 3. Save just the 'boards' slice to localStorage
     const serializedState = JSON.stringify(state.boards);
     localStorage.setItem("zenban-boards", serializedState);
-    console.log("Saved to LocalStorage:", state.boards);
   } catch (e) {
     console.warn("Could not save to localStorage", e);
   }
