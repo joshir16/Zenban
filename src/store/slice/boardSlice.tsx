@@ -35,7 +35,7 @@ const boardSlice = createSlice({
         priority: string,
         creationDate: string,
         columnId: string,
-        tags: string[]
+        tags: string,
       ) {
         return {
           payload: {
@@ -53,19 +53,22 @@ const boardSlice = createSlice({
 
       reducer(state, action: PayloadAction<Card>) {
         const currentBoardCards = state.find(
-          (board: Board) => board.id === action.payload.boardId
+          (board: Board) => board.id === action.payload.boardId,
         )?.cards;
 
         if (
           currentBoardCards?.find(
-            (item) => item.cardId === action.payload.cardId
+            (item) => item.cardId === action.payload.cardId,
           )
         ) {
           const card = currentBoardCards?.find(
-            (item) => item.cardId === action.payload.cardId
+            (item) => item.cardId === action.payload.cardId,
           );
           card!.cardTitle = action.payload.cardTitle;
           card!.description = action.payload.description;
+          card!.tags = action.payload.tags;
+          card!.priority = action.payload.priority;
+          card!.createdOn = action.payload.createdOn;
         } else {
           currentBoardCards?.push(action.payload);
         }
@@ -84,14 +87,14 @@ const boardSlice = createSlice({
 
       reducer(
         state,
-        action: PayloadAction<{ boardId: string; cardId: string }>
+        action: PayloadAction<{ boardId: string; cardId: string }>,
       ) {
         const board = state.find(
-          (board: Board) => board.id === action.payload.boardId
+          (board: Board) => board.id === action.payload.boardId,
         );
         if (board) {
           board.cards = board.cards.filter(
-            (card) => card.cardId !== action.payload.cardId
+            (card) => card.cardId !== action.payload.cardId,
           );
         }
       },

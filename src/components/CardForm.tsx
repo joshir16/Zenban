@@ -23,18 +23,21 @@ export default function CardForm() {
   const cardDetails = useSelector((state: RootState) =>
     state.boards
       .find((board) => board.id === boardId)
-      ?.cards.find((card) => card.cardId === cardId)
+      ?.cards.find((card) => card.cardId === cardId),
   );
+  console.log(cardDetails);
 
   const [cardTitle, setCardTitle] = useState(cardDetails?.cardTitle || "");
   const [cardDescription, setCardDescription] = useState(
-    cardDetails?.description || ""
+    cardDetails?.description || "",
   );
+  const [tags, setTags] = useState(cardDetails?.tags || "");
+  const [priority, setPriority] = useState(cardDetails?.priority || "");
 
-  const creationDate: Date = new Date();
+  const creationDate: Date = cardDetails?.createdOn
+    ? new Date(cardDetails.createdOn)
+    : new Date();
 
-  const priority = "low";
-  const tags = ["JavaScript", "React"];
   const columnId = "to-do";
 
   function handleAddCard(e: FormEvent<HTMLFormElement>) {
@@ -51,8 +54,8 @@ export default function CardForm() {
         priority,
         creationDate.toISOString(),
         columnId,
-        tags
-      )
+        tags,
+      ),
     );
     navigate(`/boards/${boardId}`);
     setCardTitle("");
@@ -69,10 +72,10 @@ export default function CardForm() {
     <>
       <form
         onSubmit={(e) => handleAddCard(e)}
-        className="h-min flex flex-col gap-5 p-5 w-full md:w-3/4 "
+        className="h-min flex flex-col gap-8 p-5 w-full md:w-3/4"
       >
         <div className="flex flex-col gap-2">
-          <label className="text-md font-bold" htmlFor="cardTitle">
+          <label className="text-md font-normal text-text" htmlFor="cardTitle">
             Title
           </label>
           <input
@@ -87,7 +90,10 @@ export default function CardForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-md font-bold" htmlFor="cardDescription">
+          <label
+            className="text-md font-normal text-text"
+            htmlFor="cardDescription"
+          >
             Description
           </label>
           <textarea
@@ -101,8 +107,57 @@ export default function CardForm() {
           />
         </div>
 
+        <div className="flex flex-col gap-2">
+          <label className="text-md font-normal text-text" htmlFor="tags">
+            Tags
+          </label>
+          <input
+            type="text"
+            name="tags"
+            id="tags"
+            placeholder="Add Tags"
+            className="input"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-md font-normal text-text" htmlFor="priority">
+            Tags
+          </label>
+          {/* <input
+            type="text"
+            name="priority"
+            id="priority"
+            className="input"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          /> */}
+          <select
+            name="priority"
+            id="priority"
+            className="input"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option value="zen" className="bg-background-900">
+              Zen
+            </option>
+            <option value="low" className="bg-background-900">
+              Low
+            </option>
+            <option value="medium" className="bg-background-900">
+              Medium
+            </option>
+            <option value="high" className="bg-background-900">
+              High
+            </option>
+          </select>
+        </div>
+
         <div className="flex  flex-col gap-2">
-          <p className="text-md font-bold block ">
+          <p className="text-md font-normal text-text block ">
             Created on : {getCurrentTime(creationDate)}
           </p>
         </div>

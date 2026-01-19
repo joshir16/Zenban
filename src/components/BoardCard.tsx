@@ -18,7 +18,7 @@ export default function BoardCard({ board }: BoardProp) {
           {board.name}
         </h3>
         <p className="flex-1 flex justify-center items-center text-sm font-medium group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out">
-          {board.cards.length} Cards
+          {board.cards.length ? `${board.cards.length} Cards` : `Add Cards`}
         </p>
       </div>
     </Link>
