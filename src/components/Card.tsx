@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { Card } from "../typo/type";
 import getCurrentTime from "../utils/utils";
 
@@ -10,15 +10,15 @@ export default function Card({ card }: CardProp) {
   const navigate = useNavigate();
 
   return (
-    <div className="h-max flex-1 max-w-full lg:max-w-[48%] xl:max-w-75">
-      <div
-        onClick={() =>
-          navigate(`/boards/${card.boardId}/card/${card.cardId}`, {
-            replace: true,
-          })
-        }
-        className="flex flex-col gap-5 sm:gap-7 md:gap-10 p-2 bg-board bg-card group bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700  transition-all duration-400 ease-in-out"
-      >
+    <button
+      className="h-max flex-1 max-w-full lg:max-w-[48%] xl:max-w-75 text-left"
+      onClick={() =>
+        navigate(`/boards/${card.boardId}/card/${card.cardId}`, {
+          replace: true,
+        })
+      }
+    >
+      <div className="group flex flex-col gap-5 sm:gap-7 md:gap-10 p-2 bg-board bg-card bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700  transition-all duration-400 ease-in-out">
         <div className={`flex flex-col flex-1 gap-2 pl-2 ${card.priority}`}>
           <h3 className="text-xl md:text-2xl font-bold group-hover:text-accent group-hover:transition-all group-hover:duration-500 group-hover:ease-in-out">
             {card.cardTitle}
@@ -26,11 +26,11 @@ export default function Card({ card }: CardProp) {
           <p className="flex-1 text-sm font-normal tracking-wide truncate">
             {card.description}
           </p>
-          <span className="text-xs font-bold text-text block text-end">
+          <span className="text-xs font-semibold text-text block text-end mt-2">
             {getCurrentTime(card.createdOn)}
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
