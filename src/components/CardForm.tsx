@@ -74,8 +74,11 @@ export default function CardForm() {
         onSubmit={(e) => handleAddCard(e)}
         className="h-min flex flex-col gap-8 p-5 w-full md:w-3/4"
       >
-        <div className="flex flex-col gap-2">
-          <label className="text-md font-normal text-text" htmlFor="cardTitle">
+        <div className="flex flex-col gap-1">
+          <label
+            className="text-sm font-semibold text-text"
+            htmlFor="cardTitle"
+          >
             Title
           </label>
           <input
@@ -85,13 +88,14 @@ export default function CardForm() {
             placeholder="New Card title"
             className="input"
             value={cardTitle}
+            required
             onChange={(e) => setCardTitle(e.target.value)}
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <label
-            className="text-md font-normal text-text"
+            className="text-sm font-semibold text-text"
             htmlFor="cardDescription"
           >
             Description
@@ -104,11 +108,12 @@ export default function CardForm() {
             rows={5}
             value={cardDescription}
             onChange={(e) => setCardDescription(e.target.value)}
+            required
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-md font-normal text-text" htmlFor="tags">
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-semibold text-text" htmlFor="tags">
             Tags
           </label>
           <input
@@ -122,23 +127,16 @@ export default function CardForm() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-md font-normal text-text" htmlFor="priority">
-            Tags
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-semibold text-text" htmlFor="priority">
+            Priority
           </label>
-          {/* <input
-            type="text"
-            name="priority"
-            id="priority"
-            className="input"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          /> */}
           <select
             name="priority"
             id="priority"
             className="input"
             value={priority}
+            required
             onChange={(e) => setPriority(e.target.value)}
           >
             <option value="zen" className="bg-background-900">
@@ -157,7 +155,7 @@ export default function CardForm() {
         </div>
 
         <div className="flex  flex-col gap-2">
-          <p className="text-md font-normal text-text block ">
+          <p className="text-sm font-semibold text-text block ">
             Created on : {getCurrentTime(creationDate)}
           </p>
         </div>

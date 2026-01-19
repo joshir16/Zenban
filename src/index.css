@@ -8,7 +8,7 @@
   --color-columns: #2a2a2a;
   --color-cards: #2f2f2f;
 
-  --color-text: #a0a0a0;
+  --color-text: #aaa;
   --color-text-300: #eee;
 
   --color-accent: #10b981;
@@ -30,7 +30,7 @@
 
 @layer components {
   .input {
-    @apply w-full text-base text-text-300 md:text-lg placeholder:text-text-300 transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 py-1 md:px-3 md:py-2;
+    @apply w-full text-base font-bold text-text-300 placeholder:text-text placeholder:text-sm placeholder:font-normal transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 pt-5 md:px-3 md:py-2;
   }
 
   .primaryButton {
