@@ -16,7 +16,7 @@ export function Header() {
 
   function handleCreateCard() {
     const cardId = crypto.randomUUID();
-    navigate(`/boards/${boardId}/card/${cardId}`);
+    navigate(`/boards/${boardId}/card/${cardId}`, { replace: true });
   }
 
   function handleDelete() {
@@ -27,12 +27,15 @@ export function Header() {
   return (
     <header className="w-full flex justify-between items-center py-3 px-5 border-b bg-background-700 border-background-500">
       <div className="flex justify-center items-center gap-1 sm:gap-2">
-        <button onClick={() => navigate(-1)}>
+        <button
+          onClick={() => navigate(-1)}
+          className="flex justify-center items-center gap-1 sm:gap-2"
+        >
           <ArrowLeft className="size-8 bg-background-700 rounded-full p-1  hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out" />
+          <span className="hidden sm:block sm:text-lg md:text-lg font-bold text-accent tracking-wide">
+            {currentBoard?.name}
+          </span>
         </button>
-        <h2 className="hidden sm:block sm:text-lg md:text-lg font-bold text-accent tracking-wide">
-          {currentBoard?.name}
-        </h2>
       </div>
 
       <div className="flex gap-2 sm:gap-4">

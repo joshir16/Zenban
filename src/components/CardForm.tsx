@@ -25,7 +25,6 @@ export default function CardForm() {
       .find((board) => board.id === boardId)
       ?.cards.find((card) => card.cardId === cardId),
   );
-  console.log(cardDetails);
 
   const [cardTitle, setCardTitle] = useState(cardDetails?.cardTitle || "");
   const [cardDescription, setCardDescription] = useState(
@@ -65,7 +64,7 @@ export default function CardForm() {
   function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     dispatch(deleteCard(boardId!, cardId!));
-    navigate(`/boards/${boardId}`);
+    navigate(`/boards/${boardId}`, { replace: true });
   }
 
   return (
@@ -101,8 +100,7 @@ export default function CardForm() {
             name="carcardDescriptiondTitle"
             id="cardDescription"
             placeholder="Add Card description"
-            className="input w-full"
-            rows={5}
+            className="input w-full h-60"
             value={cardDescription}
             onChange={(e) => setCardDescription(e.target.value)}
             required
@@ -132,11 +130,11 @@ export default function CardForm() {
             name="priority"
             id="priority"
             className="input"
-            value={priority}
+            defaultValue={priority}
             required
             onChange={(e) => setPriority(e.target.value)}
           >
-            <option value="zen" className="bg-background-900" selected>
+            <option value="zen" className="bg-background-900">
               Zen
             </option>
             <option value="low" className="bg-background-900">
