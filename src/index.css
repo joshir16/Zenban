@@ -30,7 +30,11 @@
 
 @layer components {
   .input {
+<<<<<<< HEAD
     @apply w-full text-base font-semibold text-text-300 placeholder:text-text placeholder:text-sm placeholder:font-normal transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 pt-5 md:px-3 md:py-2;
+=======
+    @apply w-full text-base font-bold text-text-300 placeholder:text-text placeholder:text-sm placeholder:font-normal transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 py-1 md:px-3 md:py-2;
+>>>>>>> 00ea5c6e37e53a8d69cfe0d44a007b8966f579f0
   }
 
   .primaryButton {
