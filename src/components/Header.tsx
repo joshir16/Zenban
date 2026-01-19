@@ -9,7 +9,7 @@ export function Header() {
   const { boardId } = useParams();
 
   const currentBoard = useSelector((state: RootState) =>
-    state.boards.find((board) => board.id === boardId)
+    state.boards.find((board) => board.id === boardId),
   );
 
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export function Header() {
   }
 
   return (
-    <header className="w-full flex justify-between items-center py-3 px-5 border-b bg-background-700 border-accent">
+    <header className="w-full flex justify-between items-center py-3 px-5 border-b bg-background-700 border-background-500">
       <div className="flex justify-center items-center gap-1 sm:gap-2">
         <button onClick={() => navigate(-1)}>
           <ArrowLeft className="size-8 bg-background-700 rounded-full p-1  hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out" />

@@ -32,7 +32,7 @@ export default function CardForm() {
     cardDetails?.description || "",
   );
   const [tags, setTags] = useState(cardDetails?.tags || "");
-  const [priority, setPriority] = useState(cardDetails?.priority || "");
+  const [priority, setPriority] = useState(cardDetails?.priority || "zen");
 
   const creationDate: Date = cardDetails?.createdOn
     ? new Date(cardDetails.createdOn)
@@ -57,7 +57,7 @@ export default function CardForm() {
         tags,
       ),
     );
-    navigate(`/boards/${boardId}`);
+    navigate(`/boards/${boardId}`, { replace: true });
     setCardTitle("");
     setCardDescription("");
   }
@@ -75,10 +75,7 @@ export default function CardForm() {
         className="h-min flex flex-col gap-8 p-5 w-full md:w-3/4"
       >
         <div className="flex flex-col gap-1">
-          <label
-            className="text-sm font-semibold text-text"
-            htmlFor="cardTitle"
-          >
+          <label className="text-sm font-medium text-text" htmlFor="cardTitle">
             Title
           </label>
           <input
@@ -95,7 +92,7 @@ export default function CardForm() {
 
         <div className="flex flex-col gap-1">
           <label
-            className="text-sm font-semibold text-text"
+            className="text-sm font-medium text-text"
             htmlFor="cardDescription"
           >
             Description
@@ -113,7 +110,7 @@ export default function CardForm() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-text" htmlFor="tags">
+          <label className="text-sm font-medium text-text" htmlFor="tags">
             Tags
           </label>
           <input
@@ -128,7 +125,7 @@ export default function CardForm() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-text" htmlFor="priority">
+          <label className="text-sm font-medium text-text" htmlFor="priority">
             Priority
           </label>
           <select
@@ -139,7 +136,7 @@ export default function CardForm() {
             required
             onChange={(e) => setPriority(e.target.value)}
           >
-            <option value="zen" className="bg-background-900">
+            <option value="zen" className="bg-background-900" selected>
               Zen
             </option>
             <option value="low" className="bg-background-900">
@@ -155,14 +152,14 @@ export default function CardForm() {
         </div>
 
         <div className="flex  flex-col gap-2">
-          <p className="text-sm font-semibold text-text block ">
+          <p className="text-sm font-medium text-text block ">
             Created on : {getCurrentTime(creationDate)}
           </p>
         </div>
 
         <div className="flex gap-5 w-full">
           <button type="submit" className="primaryButton flex-1">
-            Save Card
+            {cardDetails ? "Update Card" : "Save Card"}
           </button>
           <button
             type="button"

@@ -37,6 +37,7 @@ const boardSlice = createSlice({
         columnId: string,
         tags: string,
       ) {
+        console.log(creationDate);
         return {
           payload: {
             boardId,

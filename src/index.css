@@ -30,11 +30,24 @@
 
 @layer components {
   .input {
-    @apply w-full text-base font-bold text-text-300 placeholder:text-text placeholder:text-sm placeholder:font-normal transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 pt-5 md:px-3 md:py-2;
+    @apply w-full text-base font-semibold text-text-300 placeholder:text-text placeholder:text-sm placeholder:font-normal transition-all duration-300 focus:outline-none focus:ring focus:ring-accent rounded-lg border border-background-500 px-2 pt-5 md:px-3 md:py-2;
   }
 
   .primaryButton {
     @apply px-3 py-1 font-semibold border border-accent focus:outline-none focus:ring focus:ring-accent md:px-5 md:py-2 transition-all duration-400 hover:bg-accent hover:text-black;
+  }
+
+  .zen {
+    @apply border-l-2 border-accent;
+  }
+  .low {
+    @apply border-l-2 border-yellow-500;
+  }
+  .medium {
+    @apply border-l-2 border-orange-500;
+  }
+  .high {
+    @apply border-l-2 border-red-500;
   }
 }
 
