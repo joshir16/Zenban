@@ -3,6 +3,7 @@ export interface Card {
   cardId: string;
   cardTitle: string;
   description: string;
+  status: string | null;
   priority: string;
   tags: string;
   createdOn: string;

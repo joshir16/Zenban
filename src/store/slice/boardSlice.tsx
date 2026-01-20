@@ -36,6 +36,7 @@ const boardSlice = createSlice({
         creationDate: string,
         columnId: string,
         tags: string,
+        status: string | null,
       ) {
         console.log(creationDate);
         return {
@@ -48,6 +49,7 @@ const boardSlice = createSlice({
             createdOn: new Date(creationDate).toISOString(),
             columnId,
             tags,
+            status,
           },
         };
       },

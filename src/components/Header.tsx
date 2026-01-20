@@ -1,10 +1,13 @@
-import { ArrowLeft, Plus, Trash } from "lucide-react";
+import { AlertTriangleIcon, ArrowLeft, Plus, Trash } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteBoard } from "../store/slice/boardSlice";
 import type { RootState } from "../store/store";
+import Modal from "./Modal";
+import { useState } from "react";
 
 export function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
@@ -17,6 +20,10 @@ export function Header() {
   function handleCreateCard() {
     const cardId = crypto.randomUUID();
     navigate(`/boards/${boardId}/card/${cardId}`, { replace: true });
+  }
+
+  function handleModal() {
+    setIsModalOpen(true);
   }
 
   function handleDelete() {
@@ -49,12 +56,41 @@ export function Header() {
 
         <button
           className="group flex justify-between items-center gap-1 sm:gap-2 text-sm md:text-base bg-background-700 rounded-xl p-2 md:px-3 hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out"
-          onClick={handleDelete}
+          onClick={handleModal}
         >
           <Trash className="size-4 sm:size-5 font-bol group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out" />
           Delete Board
         </button>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <>
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-3 items-center">
+              <AlertTriangleIcon className="size-7 text-red-700" />
+              <h3 className="font-bold text-xl">Delete Board</h3>
+            </div>
+            <p className="text-sm md:text-md">
+              Are you sure you want to delelte board? All of your data will be
+              permanently removed. This action cannot be undone.
+            </p>
+          </div>
+          <div className="w-full flex gap-5 justify-end">
+            <button
+              className="px-5 py-1 bg-background-500 text-text-300 rounded-lg font-semibold"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="px-5 py-1 rounded-lg text-text-300 bg-red-700 font-semibold"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
+        </>
+      </Modal>
     </header>
   );
 }
