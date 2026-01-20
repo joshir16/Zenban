@@ -8,7 +8,6 @@ type Prop = {
 };
 
 export default function Modal({ isOpen, onClose, children }: Prop) {
-  // Optional: Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";

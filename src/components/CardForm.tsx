@@ -38,6 +38,7 @@ export default function CardForm() {
     : new Date();
 
   const columnId = "to-do";
+  const status = "to-do";
 
   function handleAddCard(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -54,6 +55,7 @@ export default function CardForm() {
         creationDate.toISOString(),
         columnId,
         tags,
+        status,
       ),
     );
     navigate(`/boards/${boardId}`, { replace: true });
