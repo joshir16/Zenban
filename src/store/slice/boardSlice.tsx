@@ -32,11 +32,10 @@ const boardSlice = createSlice({
         cardId: string,
         cardTitle: string,
         cardDescription: string,
-        priority: string,
-        creationDate: string,
-        columnId: string,
-        tags: string,
         status: string | null,
+        priority: string,
+        tags: string,
+        creationDate: string,
       ) {
         console.log(creationDate);
         return {
@@ -45,11 +44,10 @@ const boardSlice = createSlice({
             cardId,
             cardTitle,
             description: cardDescription,
-            priority,
-            createdOn: new Date(creationDate).toISOString(),
-            columnId,
-            tags,
             status,
+            priority,
+            tags,
+            createdOn: new Date(creationDate).toISOString(),
           },
         };
       },
