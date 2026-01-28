@@ -32,7 +32,7 @@ export default function CardForm() {
   );
   const [tags, setTags] = useState(cardDetails?.tags || "");
   const [priority, setPriority] = useState(cardDetails?.priority || "zen");
-  const [status, setStatus] = useState(cardDetails?.priority || "todo");
+  const [status, setStatus] = useState(cardDetails?.status || "todo");
 
   const creationDate: Date = cardDetails?.createdOn
     ? new Date(cardDetails.createdOn)
