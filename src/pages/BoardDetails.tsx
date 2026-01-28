@@ -21,12 +21,12 @@ export default function BoardDetails() {
   const cards = currentBoard?.cards ?? [];
 
   return (
-    <div className="w-full h-screen bg-board">
+    <div className="w-full h-dvh bg-board flex flex-col overflow-auto">
       <Header />
 
       {cards.length ? (
         <>
-          <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 h-full overflow-auto">
+          <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow">
             {columns.map((col) => (
               <Columns key={col.id}>
                 <h5 className="text-sm font-semibold px-2 pt-1">{col.title}</h5>
