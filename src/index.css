@@ -34,7 +34,7 @@
   }
 
   .primaryButton {
-    @apply px-3 py-1 font-semibold border border-accent focus:outline-none focus:ring focus:ring-accent md:px-5 md:py-2 transition-all duration-400 hover:bg-accent hover:text-black;
+    @apply px-3 py-1 font-semibold border border-accent focus:outline-none focus:ring focus:ring-accent md:px-3 md:py-2 transition-all duration-400 hover:bg-accent hover:text-black;
   }
 
   .zen {

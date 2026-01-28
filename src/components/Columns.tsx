@@ -1,9 +1,7 @@
-export default function Columns() {
+export default function Columns({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-full flex flex-col flex-wrap min-h-1/2 ">
-      <h5 className="text-xs font-semibold p-.75">To-do</h5>
-
-      <div className="grow bg-columns"></div>
+    <div className="md:h-1/3 lg:h-full flex-1 min-w-60 bg-columns flex-wrap">
+      {children}
     </div>
   );
 }

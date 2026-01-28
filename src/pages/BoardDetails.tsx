@@ -4,11 +4,18 @@ import { useParams } from "react-router-dom";
 
 import Card from "../components/Card";
 import { Header } from "../components/Header";
+import Columns from "../components/Columns";
+
+const columns = [
+  { id: "todo", title: "To-do" },
+  { id: "inprogress", title: "In Progress" },
+  { id: "completed", title: "Completed" },
+];
 
 export default function BoardDetails() {
   const { boardId } = useParams();
   const currentBoard = useSelector((state: RootState) =>
-    state.boards.find((board) => board.id === boardId)
+    state.boards.find((board) => board.id === boardId),
   );
 
   const cards = currentBoard?.cards ?? [];
@@ -20,8 +27,17 @@ export default function BoardDetails() {
       {cards.length ? (
         <>
           <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 h-full overflow-auto">
-            {cards.map((card) => (
-              <Card card={card} key={card.cardId} />
+            {columns.map((col) => (
+              <Columns key={col.id}>
+                <h5 className="text-sm font-semibold px-2 pt-1">{col.title}</h5>
+                <div className="grow p-1 flex flex-wrap gap-1">
+                  {cards
+                    .filter((card) => card.status === col.id)
+                    .map((card) => (
+                      <Card card={card} key={card.cardId} />
+                    ))}
+                </div>
+              </Columns>
             ))}
           </section>
         </>

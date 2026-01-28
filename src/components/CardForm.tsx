@@ -32,6 +32,7 @@ export default function CardForm() {
   );
   const [tags, setTags] = useState(cardDetails?.tags || "");
   const [priority, setPriority] = useState(cardDetails?.priority || "zen");
+  const [status, setStatus] = useState(cardDetails?.priority || "todo");
 
   const creationDate: Date = cardDetails?.createdOn
     ? new Date(cardDetails.createdOn)
@@ -48,7 +49,7 @@ export default function CardForm() {
         cardId!,
         cardTitle,
         cardDescription,
-        "to-do",
+        status,
         priority,
         tags,
         creationDate.toISOString(),
@@ -120,31 +121,57 @@ export default function CardForm() {
           />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-text" htmlFor="priority">
-            Priority
-          </label>
-          <select
-            name="priority"
-            id="priority"
-            className="input"
-            defaultValue={priority}
-            required
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option value="zen" className="bg-background-900">
-              Zen
-            </option>
-            <option value="low" className="bg-background-900">
-              Low
-            </option>
-            <option value="medium" className="bg-background-900">
-              Medium
-            </option>
-            <option value="high" className="bg-background-900">
-              High
-            </option>
-          </select>
+        <div className="flex gap-5">
+          <div className="flex-1 flex flex-col gap-1">
+            <label className="text-sm font-medium text-text" htmlFor="priority">
+              Priority
+            </label>
+            <select
+              name="priority"
+              id="priority"
+              className="input"
+              defaultValue={priority}
+              required
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <option value="zen" className="bg-background-900">
+                Zen
+              </option>
+              <option value="low" className="bg-background-900">
+                Low
+              </option>
+              <option value="medium" className="bg-background-900">
+                Medium
+              </option>
+              <option value="high" className="bg-background-900">
+                High
+              </option>
+            </select>
+          </div>
+
+          <div className="flex-1 flex flex-col gap-1">
+            <label className="text-sm font-medium text-text" htmlFor="status">
+              Status
+            </label>
+            <select
+              name="status"
+              id="status"
+              className="input"
+              defaultValue={status}
+              required
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="todo" className="bg-background-900">
+                To-do
+              </option>
+              <option value="inprogress" className="bg-background-900">
+                In Progress
+              </option>
+              <option value="completed" className="bg-background-900">
+                Completed
+              </option>
+            </select>
+          </div>
         </div>
 
         <div className="flex  flex-col gap-2">
@@ -153,7 +180,7 @@ export default function CardForm() {
           </p>
         </div>
 
-        <div className="flex gap-5 w-full">
+        <div className="flex gap-5 ">
           <button type="submit" className="primaryButton flex-1">
             {cardDetails ? "Update Card" : "Save Card"}
           </button>

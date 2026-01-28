@@ -32,7 +32,7 @@ const boardSlice = createSlice({
         cardId: string,
         cardTitle: string,
         cardDescription: string,
-        status: string | null,
+        status: string,
         priority: string,
         tags: string,
         creationDate: string,
@@ -68,6 +68,7 @@ const boardSlice = createSlice({
           card!.cardTitle = action.payload.cardTitle;
           card!.description = action.payload.description;
           card!.tags = action.payload.tags;
+          card!.status = action.payload.status;
           card!.priority = action.payload.priority;
           card!.createdOn = action.payload.createdOn;
         } else {
