@@ -11,7 +11,7 @@ export default function Card({ card }: CardProp) {
 
   return (
     <div
-      className="h-max flex-1 max-w-60 text-left cursor-move group flex flex-col gap-5 sm:gap-7 md:gap-10 p-2 bg-board bg-card bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700  transition-all duration-400 ease-in-out"
+      className="h-max flex-1 max-w-60 text-left cursor-move group flex flex-col gap-5 sm:gap-7 md:gap-10 p-2 bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700  transition-all duration-400 ease-in-out"
       draggable
       onClick={() => navigate(`/boards/${card.boardId}/card/${card.cardId}`)}
     >
