@@ -101,9 +101,30 @@ const boardSlice = createSlice({
         }
       },
     },
+
+    updateCardStatus(state, action) {
+      const currentBoardCards = state.find(
+        (board: Board) => board.id === action.payload.boardId,
+      )?.cards;
+      if (
+        currentBoardCards?.find(
+          (item) => item.cardId === action.payload.card.cardId,
+        )
+      ) {
+        const card = currentBoardCards?.find(
+          (item) => item.cardId === action.payload.card.cardId,
+        );
+        card!.status = action.payload.card.status;
+      }
+    },
   },
 });
 
-export const { createBoard, deleteBoard, createCard, deleteCard } =
-  boardSlice.actions;
+export const {
+  createBoard,
+  deleteBoard,
+  createCard,
+  deleteCard,
+  updateCardStatus,
+} = boardSlice.actions;
 export default boardSlice.reducer;

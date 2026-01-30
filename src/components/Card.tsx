@@ -4,15 +4,17 @@ import getCurrentTime from "../utils/utils";
 
 interface CardProp {
   card: Card;
+  handleDragStart: (card: Card) => void;
 }
 
-export default function Card({ card }: CardProp) {
+export default function CardComponent({ card, handleDragStart }: CardProp) {
   const navigate = useNavigate();
 
   return (
     <div
-      className="h-max flex-1 max-w-60 text-left cursor-move group flex flex-col gap-5 sm:gap-7 md:gap-10 p-2 bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700  transition-all duration-400 ease-in-out"
+      className="h-max flex-1 max-w-full text-left cursor-move group flex flex-col p-2 bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700 transition-all duration-400 ease-in-out"
       draggable
+      onDragStart={() => handleDragStart(card)}
       onClick={() => navigate(`/boards/${card.boardId}/card/${card.cardId}`)}
     >
       <div
@@ -24,10 +26,10 @@ export default function Card({ card }: CardProp) {
         <p className="flex-1 text-xs sm:text-sm font-normal tracking-wide truncate">
           {card.description}
         </p>
-        <span className="text-xs font-medium text-text block text-end mt-2">
-          {getCurrentTime(card.createdOn)}
-        </span>
       </div>
+      <span className="text-xs font-medium text-text block text-end mt-2">
+        {getCurrentTime(card.createdOn)}
+      </span>
     </div>
   );
 }
