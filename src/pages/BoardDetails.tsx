@@ -47,7 +47,7 @@ export default function BoardDetails() {
   }
 
   return (
-    <div className="w-full h-dvh bg-board flex flex-col overflow-auto">
+    <div className="w-full h-screen bg-board flex flex-col overflow-auto">
       <Header />
 
       {cards.length ? (
