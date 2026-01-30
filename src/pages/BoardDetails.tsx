@@ -47,12 +47,12 @@ export default function BoardDetails() {
   }
 
   return (
-    <div className="w-full h-screen bg-board flex flex-col overflow-auto">
+    <div className="w-full h-screen bg-board flex flex-col ">
       <Header />
 
       {cards.length ? (
         <>
-          <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow">
+          <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow overflow-auto">
             {columns.map((col) => (
               <Columns
                 key={col.id}

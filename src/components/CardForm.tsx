@@ -67,10 +67,10 @@ export default function CardForm() {
   }
 
   return (
-    <>
+    <section className="h-full overflow-auto">
       <form
         onSubmit={(e) => handleAddCard(e)}
-        className="h-min flex flex-col gap-8 p-5 w-full md:w-3/4"
+        className="flex flex-col gap-8 p-5 w-full md:w-3/4"
       >
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text" htmlFor="cardTitle">
@@ -193,6 +193,6 @@ export default function CardForm() {
           </button>
         </div>
       </form>
-    </>
+    </section>
   );
 }
