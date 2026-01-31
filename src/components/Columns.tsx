@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Card } from "../typo/type";
+import { memo } from "react";
 
 interface Prop {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface Prop {
   handleDrop: (status: Card["status"]) => void;
 }
 
-export default function Columns({
+function Columns({
   children,
   handleDragOver,
   handleDrop,
@@ -28,3 +29,5 @@ export default function Columns({
     </div>
   );
 }
+
+export default memo(Columns);

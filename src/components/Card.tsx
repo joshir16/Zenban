@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import type { Card } from "../typo/type";
 import getCurrentTime from "../utils/utils";
+import { memo } from "react";
 
 interface CardProp {
   card: Card;
   handleDragStart: (card: Card) => void;
 }
 
-export default function CardComponent({ card, handleDragStart }: CardProp) {
+function CardComponent({ card, handleDragStart }: CardProp) {
   const navigate = useNavigate();
 
   return (
@@ -33,3 +34,5 @@ export default function CardComponent({ card, handleDragStart }: CardProp) {
     </div>
   );
 }
+
+export default memo(CardComponent);

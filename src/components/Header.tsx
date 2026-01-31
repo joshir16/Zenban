@@ -11,9 +11,10 @@ export function Header() {
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
-  const currentBoard = useSelector((state: RootState) =>
-    state.boards.find((board) => board.id === boardId),
-  );
+  const currentBoard = useSelector((state: RootState) => {
+    const board = state.boards.find((board) => board.id === boardId);
+    return board?.name || "";
+  });
 
   const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export function Header() {
         >
           <ArrowLeft className="size-8 bg-background-700 rounded-full p-1  hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out" />
           <span className="hidden sm:block sm:text-lg md:text-lg font-bold text-accent tracking-wide">
-            {currentBoard?.name}
+            {currentBoard}
           </span>
         </button>
       </div>
