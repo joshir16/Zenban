@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import { useParams } from "react-router-dom";
 
-import CardComponent from "../components/Card";
 import Columns from "../components/Columns";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { updateCardStatus } from "../store/slice/boardSlice";
 
-const columns = [
+const columnObj = [
   { id: "todo", title: "To-do" },
   { id: "inprogress", title: "In Progress" },
   { id: "completed", title: "Completed" },
@@ -24,51 +23,44 @@ export default function CardSection() {
     return board?.cards || [];
   });
 
-  function handleDragStart(card: Card) {
+  const handleDragStart = useCallback((card: Card) => {
     setDraggedItem(card);
-  }
+  }, []);
 
-  function handleDragOver(e: React.DragEvent) {
+  const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-  }
+  }, []);
 
   // Drag/Drop Functionality
-  function handleDrop(status: Card["status"]) {
-    if (draggedItem && boardId && status !== draggedItem.status) {
-      const updatedCard: Card = {
-        ...draggedItem,
-        status,
-      };
-      dispatch(updateCardStatus({ boardId, card: updatedCard }));
-    }
-    setDraggedItem(null);
-  }
+  const handleDrop = useCallback(
+    (status: Card["status"]) => {
+      if (draggedItem && boardId && status !== draggedItem.status) {
+        const updatedCard: Card = {
+          ...draggedItem,
+          status,
+        };
+        dispatch(updateCardStatus({ boardId, card: updatedCard }));
+      }
+      setDraggedItem(null);
+    },
+    [draggedItem, boardId, dispatch],
+  );
+
   return (
     <>
       {cards.length ? (
         <>
           <section className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow overflow-auto">
-            {columns.map((col) => (
+            {columnObj.map((col) => (
               <Columns
                 key={col.id}
                 handleDragOver={handleDragOver}
                 handleDrop={handleDrop}
-                colId={col.id}
+                col={col}
+                boardId={boardId}
                 draggedItem={draggedItem}
-              >
-                <h5 className="text-sm font-semibold px-2 pt-1">{col.title}</h5>
-                <div className="grow p-1 flex flex-wrap gap-1">
-                  {cards
-                    .filter((card) => card.status === col.id)
-                    .map((card) => (
-                      <CardComponent
-                        card={card}
-                        key={card.cardId}
-                        handleDragStart={handleDragStart}
-                      />
-                    ))}
-                </div>
-              </Columns>
+                handleDragStart={handleDragStart}
+              />
             ))}
           </section>
         </>
