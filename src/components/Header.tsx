@@ -1,15 +1,17 @@
-import { AlertTriangleIcon, ArrowLeft, Plus, Trash } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { memo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteBoard } from "../store/slice/boardSlice";
+
 import type { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBoard } from "../store/slice/boardSlice";
+
 import Modal from "./Modal";
-import { useState } from "react";
+import { AlertTriangleIcon, ArrowLeft, Plus, Trash } from "lucide-react";
 
 export function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const { boardId } = useParams();
+  const { boardId, cardId } = useParams();
 
   const currentBoard = useSelector((state: RootState) => {
     const board = state.boards.find((board) => board.id === boardId);
@@ -46,23 +48,25 @@ export function Header() {
         </button>
       </div>
 
-      <div className="flex gap-2 sm:gap-4">
-        <button
-          onClick={handleCreateCard}
-          className="group flex justify-between items-center gap-1 sm:gap-2 text-sm md:text-base bg-background-700 rounded-xl p-2 md:px-3 hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out"
-        >
-          <Plus className="size-4 sm:size-5 group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out" />
-          <span>Create Card</span>
-        </button>
+      {!cardId && (
+        <div className="flex gap-2 sm:gap-4">
+          <button
+            onClick={handleCreateCard}
+            className="group flex justify-between items-center gap-1 sm:gap-2 text-sm md:text-base bg-background-700 rounded-xl p-2 md:px-3 hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out"
+          >
+            <Plus className="size-4 sm:size-5 group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out" />
+            <span>Create Card</span>
+          </button>
 
-        <button
-          className="group flex justify-between items-center gap-1 sm:gap-2 text-sm md:text-base bg-background-700 rounded-xl p-2 md:px-3 hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out"
-          onClick={handleModal}
-        >
-          <Trash className="size-4 sm:size-5 font-bol group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out" />
-          Delete Board
-        </button>
-      </div>
+          <button
+            className="group flex justify-between items-center gap-1 sm:gap-2 text-sm md:text-base bg-background-700 rounded-xl p-2 md:px-3 hover:bg-background-900 hover:text-accent border border-background-500 hover:border-accent transition-all duration-400 ease-in-out"
+            onClick={handleModal}
+          >
+            <Trash className="size-4 sm:size-5 font-bol group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out" />
+            Delete Board
+          </button>
+        </div>
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <>
@@ -95,3 +99,5 @@ export function Header() {
     </header>
   );
 }
+
+export default memo(Header);

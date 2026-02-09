@@ -55,3 +55,8 @@
   color: var(--color-accent);
   border-bottom: 1px solid var(--color-accent);
 }
+
+.is-dragging .bg-columns {
+  border-style: dashed;
+  border-color: rgba(var(--primary), 0.5); /* or your preferred color */
+}

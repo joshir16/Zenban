@@ -19,7 +19,7 @@ function CardComponent({ card, handleDragStart }: CardProp) {
       onClick={() => navigate(`/boards/${card.boardId}/card/${card.cardId}`)}
     >
       <div
-        className={`flex flex-col flex-1 gap-2 pl-2 ${card.priority} cursor-pointer`}
+        className={`min-w-20 flex flex-col flex-1 gap-2 pl-2 ${card.priority} cursor-pointer`}
       >
         <h3 className="text-base sm:text-lg md:text-2xl font-bold group-hover:text-accent group-hover:transition-all group-hover:duration-400 group-hover:ease-in-out">
           {card.cardTitle}

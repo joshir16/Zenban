@@ -53,26 +53,17 @@ const boardSlice = createSlice({
       },
 
       reducer(state, action: PayloadAction<Card>) {
-        const currentBoardCards = state.find(
-          (board: Board) => board.id === action.payload.boardId,
-        )?.cards;
+        const board = state.find((b) => b.id === action.payload.boardId);
+        if (!board) return;
 
-        if (
-          currentBoardCards?.find(
-            (item) => item.cardId === action.payload.cardId,
-          )
-        ) {
-          const card = currentBoardCards?.find(
-            (item) => item.cardId === action.payload.cardId,
-          );
-          card!.cardTitle = action.payload.cardTitle;
-          card!.description = action.payload.description;
-          card!.tags = action.payload.tags;
-          card!.status = action.payload.status;
-          card!.priority = action.payload.priority;
-          card!.createdOn = action.payload.createdOn;
+        const existingCard = board.cards.find(
+          (c) => c.cardId === action.payload.cardId,
+        );
+
+        if (existingCard) {
+          Object.assign(existingCard, action.payload);
         } else {
-          currentBoardCards?.push(action.payload);
+          board.cards.push(action.payload);
         }
       },
     },
@@ -103,18 +94,12 @@ const boardSlice = createSlice({
     },
 
     updateCardStatus(state, action) {
-      const currentBoardCards = state.find(
-        (board: Board) => board.id === action.payload.boardId,
-      )?.cards;
-      if (
-        currentBoardCards?.find(
-          (item) => item.cardId === action.payload.card.cardId,
-        )
-      ) {
-        const card = currentBoardCards?.find(
-          (item) => item.cardId === action.payload.card.cardId,
-        );
-        card!.status = action.payload.card.status;
+      const board = state.find((b) => b.id === action.payload.boardId);
+      const card = board?.cards.find(
+        (c) => c.cardId === action.payload.card.cardId,
+      );
+      if (card) {
+        card.status = action.payload.card.status;
       }
     },
   },
