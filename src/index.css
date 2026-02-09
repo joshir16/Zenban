@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --color-background-900: #1a1a1a;
   --color-background-700: #202020;
@@ -59,4 +63,25 @@
 .is-dragging .bg-columns {
   border-style: dashed;
   border-color: rgba(var(--primary), 0.5); /* or your preferred color */
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #4a4a4a;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-background-700);
+  border-radius: 10px;
+  border: 1px solid #10b981;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
 }
