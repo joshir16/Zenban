@@ -25,7 +25,7 @@ export default function BoardForm() {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className="flex flex-row w-full text-sm sm:text-md md:text-base md:px-5 rounded-sm "
+      className="flex flex-row w-full text-sm sm:text-md md:text-base px-1 md:px-5  rounded-sm "
     >
       <input
         type="text"

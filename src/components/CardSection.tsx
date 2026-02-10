@@ -22,9 +22,9 @@ export default function CardSection() {
   // 2. Ref to toggle CSS classes (Fixes Visuals)
   const containerRef = useRef<HTMLElement>(null);
 
-  const cards = useSelector((state: RootState) => {
+  const cardsLength = useSelector((state: RootState) => {
     const board = state.boards.find((board) => board.id === boardId);
-    return board?.cards || [];
+    return board?.cards.length || 0;
   });
 
   const handleDragStart = useCallback((card: Card) => {
@@ -58,7 +58,7 @@ export default function CardSection() {
 
   return (
     <>
-      {cards.length ? (
+      {cardsLength > 0 ? (
         <section
           ref={containerRef} // Attach Ref here for CSS
           className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow overflow-auto"
