@@ -3,17 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCard, deleteCard } from "../store/slice/boardSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import type { RootState } from "../store/store";
-
-function getCurrentTime(date: Date | string) {
-  const dateTime = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Kolkata",
-    hour: "numeric",
-    minute: "2-digit",
-    day: "2-digit",
-    month: "short",
-  }).format(new Date(date));
-  return dateTime;
-}
+import getCurrentTime from "../utils/utils";
 
 export default function CardForm() {
   const { boardId, cardId } = useParams();
@@ -67,10 +57,10 @@ export default function CardForm() {
   }
 
   return (
-    <section className="h-full overflow-auto">
+    <section className="h-full overflow-auto w-full md:w-3/4">
       <form
         onSubmit={(e) => handleAddCard(e)}
-        className="flex flex-col gap-8 p-5 w-full md:w-3/4"
+        className="flex flex-col gap-8 p-5"
       >
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text" htmlFor="cardTitle">
