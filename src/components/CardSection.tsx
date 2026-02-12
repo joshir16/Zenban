@@ -53,27 +53,29 @@ export default function CardSection() {
 
   return (
     <>
-      {cardsLength > 0 ? (
-        <section
-          ref={containerRef} // Attach Ref here for CSS
-          className="p-5 sm:p-3 flex flex-wrap content-start gap-3 grow overflow-auto"
-        >
-          {columnObj.map((col) => (
-            <Columns
-              key={col.id}
-              col={col}
-              boardId={boardId}
-              handleDragStart={handleDragStart}
-              handleDragOver={handleDragOver} // Pass this prop!
-              handleDrop={handleDrop}
-            />
-          ))}
-        </section>
-      ) : (
-        <div className="flex w-full h-3/5 justify-center items-center flex-col">
-          <p>Please create a new Card</p>
-        </div>
-      )}
+      <div className="px-5 sm:px-3 h-full flex flex-col">
+        {cardsLength > 0 ? (
+          <section
+            ref={containerRef} // Attach Ref here for CSS
+            className=" flex flex-wrap content-start gap-2 grow overflow-auto"
+          >
+            {columnObj.map((col) => (
+              <Columns
+                key={col.id}
+                col={col}
+                boardId={boardId}
+                handleDragStart={handleDragStart}
+                handleDragOver={handleDragOver} // Pass this prop!
+                handleDrop={handleDrop}
+              />
+            ))}
+          </section>
+        ) : (
+          <div className="flex w-full h-3/5 justify-center items-center flex-col">
+            <p>Please create a new Card</p>
+          </div>
+        )}
+      </div>
     </>
   );
 }

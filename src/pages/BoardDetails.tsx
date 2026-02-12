@@ -3,7 +3,7 @@ import { Header } from "../components/Header";
 
 export default function BoardDetails() {
   return (
-    <div className="w-full h-screen bg-board flex flex-col ">
+    <div className="w-full h-screen bg-board flex flex-col gap-2">
       <Header />
       <CardSection />
     </div>
