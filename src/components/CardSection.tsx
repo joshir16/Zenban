@@ -16,10 +16,8 @@ export default function CardSection() {
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
-  // 1. Ref to store data silently (Fixes Drag Start Lag)
   const draggedItemRef = useRef<Card | null>(null);
 
-  // 2. Ref to toggle CSS classes (Fixes Visuals)
   const containerRef = useRef<HTMLElement>(null);
 
   const cardsLength = useSelector((state: RootState) => {
@@ -33,7 +31,6 @@ export default function CardSection() {
     if (containerRef.current) containerRef.current.classList.add("is-dragging");
   }, []);
 
-  // CRITICAL FIX: You must have this function for Drop to work!
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
   }, []);
@@ -43,9 +40,7 @@ export default function CardSection() {
       const item = draggedItemRef.current;
 
       if (item && boardId && status !== item.status) {
-        // Fix: Update status on the existing item data
-        const updatedCard = { ...item, status };
-        dispatch(updateCardStatus({ boardId, card: updatedCard }));
+        dispatch(updateCardStatus({ boardId, cardId: item.cardId, status }));
       }
 
       // Cleanup

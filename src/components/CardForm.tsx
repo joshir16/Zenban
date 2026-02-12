@@ -16,51 +16,65 @@ export default function CardForm() {
       ?.cards.find((card) => card.cardId === cardId),
   );
 
+  // Initialize State
   const [cardTitle, setCardTitle] = useState(cardDetails?.cardTitle || "");
   const [cardDescription, setCardDescription] = useState(
     cardDetails?.description || "",
   );
-  const [tags, setTags] = useState(cardDetails?.tags || "");
+
+  // LOGIC FIX 1: If tags is an array in Redux, join it to string for the input
+  const [tags, setTags] = useState(
+    Array.isArray(cardDetails?.tags)
+      ? cardDetails.tags.join(", ")
+      : cardDetails?.tags || "",
+  );
+
   const [priority, setPriority] = useState(cardDetails?.priority || "zen");
   const [status, setStatus] = useState(cardDetails?.status || "todo");
 
-  const creationDate: Date = cardDetails?.createdOn
+  const creationDate = cardDetails?.createdOn
     ? new Date(cardDetails.createdOn)
     : new Date();
 
   function handleAddCard(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!boardId && !cardId && !cardDescription && !priority && !tags) return;
+    if (!boardId || !cardId) return;
+
+    // LOGIC FIX 2: Convert String -> Array before sending to Redux
+    const tagsArray = tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag !== "");
 
     dispatch(
       createCard(
-        boardId!,
-        cardId!,
+        boardId,
+        cardId,
         cardTitle,
         cardDescription,
         status,
         priority,
-        tags,
+        tagsArray,
         creationDate.toISOString(),
       ),
     );
     navigate(`/boards/${boardId}`, { replace: true });
-    setCardTitle("");
-    setCardDescription("");
   }
 
   function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    dispatch(deleteCard(boardId!, cardId!));
+    if (!boardId || !cardId) return;
+
+    dispatch(deleteCard({ boardId, cardId }));
     navigate(`/boards/${boardId}`, { replace: true });
   }
 
   return (
-    <section className="h-full overflow-auto w-full md:w-3/4">
+    <section className="h-full overflow-auto w-full md:w-3/4 mx-auto flex flex-col items-center">
       <form
-        onSubmit={(e) => handleAddCard(e)}
-        className="flex flex-col gap-8 p-5"
+        onSubmit={handleAddCard}
+        className="flex flex-col gap-8 p-5 w-full max-w-3xl"
       >
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-text" htmlFor="cardTitle">
@@ -68,7 +82,6 @@ export default function CardForm() {
           </label>
           <input
             type="text"
-            name="cardTitle"
             id="cardTitle"
             placeholder="New Card title"
             className="input"
@@ -86,7 +99,6 @@ export default function CardForm() {
             Description
           </label>
           <textarea
-            name="carcardDescriptiondTitle"
             id="cardDescription"
             placeholder="Add Card description"
             className="input w-full h-60"
@@ -102,9 +114,8 @@ export default function CardForm() {
           </label>
           <input
             type="text"
-            name="tags"
             id="tags"
-            placeholder="Add Tags"
+            placeholder="Add Tags (comma separated)"
             className="input"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
@@ -117,10 +128,9 @@ export default function CardForm() {
               Priority
             </label>
             <select
-              name="priority"
               id="priority"
               className="input"
-              defaultValue={priority}
+              value={priority}
               required
               onChange={(e) => setPriority(e.target.value)}
             >
@@ -144,10 +154,9 @@ export default function CardForm() {
               Status
             </label>
             <select
-              name="status"
               id="status"
               className="input"
-              defaultValue={status}
+              value={status}
               required
               onChange={(e) => setStatus(e.target.value)}
             >
@@ -164,7 +173,7 @@ export default function CardForm() {
           </div>
         </div>
 
-        <div className="flex  flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <p className="text-sm font-medium text-text block ">
             Created on : {getCurrentTime(creationDate)}
           </p>
@@ -177,7 +186,7 @@ export default function CardForm() {
           <button
             type="button"
             className="primaryButton flex-1"
-            onClick={(e) => handleDeleteCard(e)}
+            onClick={handleDeleteCard}
           >
             Delete Card
           </button>

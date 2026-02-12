@@ -1,11 +1,10 @@
 export interface Card {
-  boardId: string;
   cardId: string;
   cardTitle: string;
   description: string;
-  status: string | null;
+  status: string;
   priority: string;
-  tags: string;
+  tags: string[];
   createdOn: string;
 }
 
