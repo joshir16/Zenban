@@ -1,9 +1,9 @@
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCard, deleteCard } from "../store/slice/boardSlice";
+import { createCard, deleteCard } from "../../store/slice/boardSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import type { RootState } from "../store/store";
-import getCurrentTime from "../utils/utils";
+import type { RootState } from "../../store/store";
+import getCurrentTime from "../../utils/utils";
 
 export default function CardForm() {
   const { boardId, cardId } = useParams();

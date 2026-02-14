@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import BoardCard from "../components/BoardCard";
 import Welcome from "./Welcome";
 import type { RootState } from "../store/store";
-import BoardForm from "../components/BoardForm";
-import Logo from "../components/Logo";
+import BoardForm from "../components/forms/BoardForm";
+import Logo from "../components/ui/Logo";
 import { VirtuosoGrid } from "react-virtuoso";
 import { forwardRef } from "react";
 

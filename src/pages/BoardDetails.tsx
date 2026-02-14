@@ -1,5 +1,5 @@
 import CardSection from "../components/CardSection";
-import { Header } from "../components/Header";
+import { Header } from "../components/navigation/Header";
 
 export default function BoardDetails() {
   return (

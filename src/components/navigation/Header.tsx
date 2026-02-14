@@ -1,11 +1,11 @@
 import { memo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { RootState } from "../store/store";
+import type { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBoard } from "../store/slice/boardSlice";
+import { deleteBoard } from "../../store/slice/boardSlice";
 
-import Modal from "./Modal";
+import Modal from "../ui/Modal";
 import { AlertTriangleIcon, ArrowLeft, Plus, Trash } from "lucide-react";
 
 export function Header() {

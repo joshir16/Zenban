@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import PageNav from "../components/PageNav";
+import PageNav from "../components/navigation/PageNav";
 
 export default function Layout() {
   return (

@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { createBoard } from "../store/slice/boardSlice";
+import { createBoard } from "../../store/slice/boardSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function BoardForm() {
