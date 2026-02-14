@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { Card } from "../typo/type";
 import getCurrentTime from "../utils/utils";
 import { memo } from "react";
@@ -9,6 +9,7 @@ interface CardProp {
 }
 
 function CardComponent({ card, handleDragStart }: CardProp) {
+  const { boardId } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -16,7 +17,7 @@ function CardComponent({ card, handleDragStart }: CardProp) {
       className="h-max flex-1 max-w-full text-left cursor-move group flex flex-col p-2 bg-background-900 rounded-xl border border-background-500 text-text-300 hover:bg-background-700 transition-all duration-400 ease-in-out"
       draggable
       onDragStart={() => handleDragStart(card)}
-      onClick={() => navigate(`/boards/${card.boardId}/card/${card.cardId}`)}
+      onClick={() => navigate(`/boards/${boardId}/card/${card.cardId}`)}
     >
       <div
         className={`min-w-20 flex flex-col flex-1 gap-2 pl-2 ${card.priority} cursor-pointer`}

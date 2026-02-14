@@ -53,11 +53,11 @@ export default function CardSection() {
 
   return (
     <>
-      <div className="px-5 sm:px-3 h-full flex flex-col">
+      <div className="h-full flex flex-col">
         {cardsLength > 0 ? (
           <section
             ref={containerRef} // Attach Ref here for CSS
-            className=" flex flex-wrap content-start gap-2 grow overflow-auto"
+            className=" flex flex-wrap content-start gap-2 px-2 grow overflow-auto"
           >
             {columnObj.map((col) => (
               <Columns
