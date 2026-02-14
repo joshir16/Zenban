@@ -5,6 +5,7 @@ import type { RootState } from "../store/store";
 import type { Card } from "../typo/type";
 import { updateCardStatus } from "../store/slice/boardSlice";
 import Columns from "../components/Columns";
+import FilterBar from "./FilterBar";
 
 const columnObj = [
   { id: "todo", title: "To-do" },
@@ -53,7 +54,8 @@ export default function CardSection() {
 
   return (
     <>
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col gap-2">
+        <FilterBar />
         {cardsLength > 0 ? (
           <section
             ref={containerRef} // Attach Ref here for CSS
