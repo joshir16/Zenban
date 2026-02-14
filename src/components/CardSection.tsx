@@ -5,7 +5,7 @@ import type { RootState } from "../store/store";
 import type { Card } from "../typo/type";
 import { updateCardStatus } from "../store/slice/boardSlice";
 import Columns from "../components/Columns";
-import FilterBar from "./FilterBar";
+import FilterBar from "./filter/FilterBar";
 
 const columnObj = [
   { id: "todo", title: "To-do" },
