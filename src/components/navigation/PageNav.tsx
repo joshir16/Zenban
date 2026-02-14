@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import BoardForm from "./BoardForm";
+import BoardForm from "../forms/BoardForm";
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import Logo from "./Logo";
+import type { RootState } from "../../store/store";
+import Logo from "../ui/Logo";
 import { Virtuoso } from "react-virtuoso";
 
 export default function PageNav() {

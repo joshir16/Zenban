@@ -1,5 +1,5 @@
-import CardForm from "../components/CardForm";
-import { Header } from "../components/Header";
+import CardForm from "../components/forms/CardForm";
+import { Header } from "../components/navigation/Header";
 
 export default function CardDetails() {
   return (

@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import BoardCard from "../components/BoardCard";
 import Welcome from "./Welcome";
 import type { RootState } from "../store/store";
-import BoardForm from "../components/BoardForm";
-import Logo from "../components/Logo";
+import BoardForm from "../components/forms/BoardForm";
+import Logo from "../components/ui/Logo";
 import { VirtuosoGrid } from "react-virtuoso";
 import { forwardRef } from "react";
 
@@ -25,7 +25,10 @@ export default function BoardList() {
             overscan={200}
             // 2. Define the Grid Layout here
             components={{
-              List: forwardRef(({ style, children, ...props }, ref) => (
+              List: forwardRef<
+                HTMLDivElement,
+                React.HTMLAttributes<HTMLDivElement>
+              >(({ style, children, ...props }, ref) => (
                 <div
                   ref={ref}
                   {...props}
@@ -36,7 +39,10 @@ export default function BoardList() {
                   {children}
                 </div>
               )),
-              Item: forwardRef(({ children, ...props }, ref) => (
+              Item: forwardRef<
+                HTMLDivElement,
+                React.HTMLAttributes<HTMLDivElement>
+              >(({ children, ...props }, ref) => (
                 // Optional: Ensure items take full width of their grid cell
                 <div {...props} ref={ref} className="w-full h-full">
                   {children}
