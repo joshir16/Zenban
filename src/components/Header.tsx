@@ -30,7 +30,7 @@ export function Header() {
   }
 
   function handleDelete() {
-    dispatch(deleteBoard(boardId));
+    dispatch(deleteBoard(boardId!));
     navigate("/");
   }
 
