@@ -55,23 +55,25 @@ export default function CardSection() {
   return (
     <>
       <div className="h-full flex flex-col gap-2">
-        <FilterBar />
         {cardsLength > 0 ? (
-          <section
-            ref={containerRef} // Attach Ref here for CSS
-            className=" flex flex-wrap content-start gap-2 px-2 grow overflow-auto"
-          >
-            {columnObj.map((col) => (
-              <Columns
-                key={col.id}
-                col={col}
-                boardId={boardId}
-                handleDragStart={handleDragStart}
-                handleDragOver={handleDragOver} // Pass this prop!
-                handleDrop={handleDrop}
-              />
-            ))}
-          </section>
+          <>
+            <FilterBar />
+            <section
+              ref={containerRef} // Attach Ref here for CSS
+              className=" flex flex-wrap content-start gap-2 px-2 grow overflow-auto"
+            >
+              {columnObj.map((col) => (
+                <Columns
+                  key={col.id}
+                  col={col}
+                  boardId={boardId}
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver} // Pass this prop!
+                  handleDrop={handleDrop}
+                />
+              ))}
+            </section>
+          </>
         ) : (
           <div className="flex w-full h-3/5 justify-center items-center flex-col">
             <p>Please create a new Card</p>
