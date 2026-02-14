@@ -25,7 +25,10 @@ export default function BoardList() {
             overscan={200}
             // 2. Define the Grid Layout here
             components={{
-              List: forwardRef(({ style, children, ...props }, ref) => (
+              List: forwardRef<
+                HTMLDivElement,
+                React.HTMLAttributes<HTMLDivElement>
+              >(({ style, children, ...props }, ref) => (
                 <div
                   ref={ref}
                   {...props}
@@ -36,7 +39,10 @@ export default function BoardList() {
                   {children}
                 </div>
               )),
-              Item: forwardRef(({ children, ...props }, ref) => (
+              Item: forwardRef<
+                HTMLDivElement,
+                React.HTMLAttributes<HTMLDivElement>
+              >(({ children, ...props }, ref) => (
                 // Optional: Ensure items take full width of their grid cell
                 <div {...props} ref={ref} className="w-full h-full">
                   {children}
