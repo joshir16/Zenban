@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 const config = {
-  default: { icon: CalendarArrowUp, text: "Sort", color: "" },
+  default: { icon: CalendarArrowUp, text: "Oldest", color: "" },
   desc: { icon: CalendarArrowDown, text: "Newest", color: "blue-400" },
   alpha: { icon: ArrowDownAz, text: "A-Z", color: "blue-400" },
 };
@@ -38,13 +38,11 @@ export default function FilterBar({ sortOrder, handleSortButton }: Prop) {
         </button>
 
         <button
-          className={`text-sm flex justify-center items-center gap-1 px-2 py-1 rounded-lg border ${sortOrder == "default" ? "border-background-500" : "border-accent"}`}
+          className={`text-sm flex justify-center items-center gap-1 px-2 py-1 rounded-lg border border-background-500 border-${current.color} bg-${current.color}/10`}
           onClick={handleSortButton}
         >
-          <span>{current.text}</span>
-          <Icon
-            className={`size-4 ${sortOrder == "default" ? "" : "text-accent"}`}
-          />
+          <span className={`text-${current.color}`}>{current.text}</span>
+          <Icon className={`size-4 text-${current.color}`} />
         </button>
       </div>
     </div>
