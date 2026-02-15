@@ -12,6 +12,7 @@ interface Prop {
   handleDragOver: (e: React.DragEvent) => void;
   handleDrop: (status: Card["status"]) => void;
   handleDragStart: (card: Card) => void;
+  sortOrder: "default" | "desc" | "alpha";
 }
 
 function Columns({
@@ -20,11 +21,27 @@ function Columns({
   col,
   boardId,
   handleDragStart,
+  sortOrder,
 }: Prop) {
   const cards = useSelector((state: RootState) => {
     const board = state.boards.find((board) => board.id === boardId);
     return board?.cards.filter((card) => card.status === col.id) || [];
   }, shallowEqual);
+
+  let sortedCards;
+  if (sortOrder === "default") sortedCards = cards;
+
+  if (sortOrder === "desc")
+    sortedCards = cards.sort((a, b) => {
+      const dateA = new Date(a.createdOn).getTime();
+      const dateB = new Date(b.createdOn).getTime();
+      return sortOrder === "desc" ? dateB - dateA : dateB - dateA;
+    });
+
+  if (sortOrder === "alpha")
+    sortedCards = cards
+      .slice()
+      .sort((a, b) => a.cardTitle.localeCompare(b.cardTitle));
 
   return (
     <>
@@ -41,7 +58,7 @@ function Columns({
         <div className="flex-1 min-h-0">
           <Virtuoso
             style={{ height: "100%" }} // Must take full height of parent
-            data={cards}
+            data={sortedCards}
             overscan={200} // Pre-renders 200px of cards off-screen for smoothness
             // Item Renderer
             itemContent={(_, card) => (

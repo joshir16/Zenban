@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import type { RootState } from "../store/store";
@@ -16,6 +16,10 @@ const columnObj = [
 export default function CardSection() {
   const dispatch = useDispatch();
   const { boardId } = useParams();
+
+  const [sortOrder, setSortOrder] = useState<"default" | "desc" | "alpha">(
+    "default",
+  );
 
   const draggedItemRef = useRef<Card | null>(null);
 
@@ -52,12 +56,20 @@ export default function CardSection() {
     [boardId, dispatch],
   );
 
+  function handleSortButton() {
+    const cycles = { default: "desc", desc: "alpha", alpha: "default" };
+    setSortOrder(cycles[sortOrder] as "default" | "desc" | "alpha");
+  }
+
   return (
     <>
       <div className="h-full flex flex-col gap-2">
         {cardsLength > 0 ? (
           <>
-            <FilterBar />
+            <FilterBar
+              sortOrder={sortOrder}
+              handleSortButton={handleSortButton}
+            />
             <section
               ref={containerRef} // Attach Ref here for CSS
               className=" flex flex-wrap content-start gap-2 px-2 grow overflow-auto"
@@ -70,6 +82,7 @@ export default function CardSection() {
                   handleDragStart={handleDragStart}
                   handleDragOver={handleDragOver} // Pass this prop!
                   handleDrop={handleDrop}
+                  sortOrder={sortOrder}
                 />
               ))}
             </section>

@@ -1,10 +1,30 @@
-import { Calendar, ListFilter, Search } from "lucide-react";
+import {
+  CalendarArrowUp,
+  CalendarArrowDown,
+  ListFilter,
+  Search,
+  ArrowDownAz,
+} from "lucide-react";
 
-export default function FilterBar() {
+const config = {
+  default: { icon: CalendarArrowUp, text: "Sort", color: "" },
+  desc: { icon: CalendarArrowDown, text: "Newest", color: "blue-400" },
+  alpha: { icon: ArrowDownAz, text: "A-Z", color: "blue-400" },
+};
+
+type Prop = {
+  sortOrder: "default" | "desc" | "alpha";
+  handleSortButton: () => void;
+};
+
+export default function FilterBar({ sortOrder, handleSortButton }: Prop) {
+  const current = config[sortOrder];
+  const Icon = current.icon;
+
   return (
     <div className="w-full h-auto flex gap-2 px-2 items-end justify-between">
       <div className="flex justify-center items-center gap-1 rounded-lg px-1 border border-background-500">
-        <Search className="size-3 " />
+        <Search className="size-3 text-text" />
         <input
           type="text"
           className="text-sm py-1 outline-none w-50 transition-all duration-300 focus:outline-none"
@@ -16,9 +36,15 @@ export default function FilterBar() {
           Priority
           <ListFilter className="size-3" />
         </button>
-        <button className="text-sm flex justify-center items-center gap-1 rounded-lg px-2 py-1 border border-background-500">
-          Sort
-          <Calendar className="size-3" />
+
+        <button
+          className={`text-sm flex justify-center items-center gap-1 px-2 py-1 rounded-lg border ${sortOrder == "default" ? "border-background-500" : "border-accent"}`}
+          onClick={handleSortButton}
+        >
+          <span>{current.text}</span>
+          <Icon
+            className={`size-4 ${sortOrder == "default" ? "" : "text-accent"}`}
+          />
         </button>
       </div>
     </div>
