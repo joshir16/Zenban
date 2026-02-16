@@ -13,6 +13,7 @@ interface Prop {
   handleDrop: (status: Card["status"]) => void;
   handleDragStart: (card: Card) => void;
   sortOrder: "default" | "desc" | "alpha";
+  priorityFilter: "all" | "zen" | "low" | "medium" | "high";
 }
 
 function Columns({
@@ -22,24 +23,31 @@ function Columns({
   boardId,
   handleDragStart,
   sortOrder,
+  priorityFilter,
 }: Prop) {
   const cards = useSelector((state: RootState) => {
     const board = state.boards.find((board) => board.id === boardId);
     return board?.cards.filter((card) => card.status === col.id) || [];
   }, shallowEqual);
 
+  let filteredCards;
+  if (priorityFilter !== "all") {
+    filteredCards =
+      cards.filter((card) => card.priority === priorityFilter) || [];
+  } else filteredCards = cards;
+
   let sortedCards;
-  if (sortOrder === "default") sortedCards = cards;
+  if (sortOrder === "default") sortedCards = filteredCards;
 
   if (sortOrder === "desc")
-    sortedCards = cards.sort((a, b) => {
+    sortedCards = filteredCards.sort((a, b) => {
       const dateA = new Date(a.createdOn).getTime();
       const dateB = new Date(b.createdOn).getTime();
       return sortOrder === "desc" ? dateB - dateA : dateB - dateA;
     });
 
   if (sortOrder === "alpha")
-    sortedCards = cards
+    sortedCards = filteredCards
       .slice()
       .sort((a, b) => a.cardTitle.localeCompare(b.cardTitle));
 

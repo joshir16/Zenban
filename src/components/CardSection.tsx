@@ -20,6 +20,9 @@ export default function CardSection() {
   const [sortOrder, setSortOrder] = useState<"default" | "desc" | "alpha">(
     "default",
   );
+  const [priorityFilter, setPriorityFilter] = useState<
+    "all" | "zen" | "low" | "medium" | "high"
+  >("all");
 
   const draggedItemRef = useRef<Card | null>(null);
 
@@ -69,6 +72,8 @@ export default function CardSection() {
             <FilterBar
               sortOrder={sortOrder}
               handleSortButton={handleSortButton}
+              priorityFilter={priorityFilter}
+              setPriorityFilter={setPriorityFilter}
             />
             <section
               ref={containerRef} // Attach Ref here for CSS
@@ -83,6 +88,7 @@ export default function CardSection() {
                   handleDragOver={handleDragOver} // Pass this prop!
                   handleDrop={handleDrop}
                   sortOrder={sortOrder}
+                  priorityFilter={priorityFilter}
                 />
               ))}
             </section>
