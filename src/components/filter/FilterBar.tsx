@@ -50,14 +50,14 @@ export default function FilterBar({
 
   return (
     <div className="w-full h-auto flex gap-2 px-2 items-end justify-between">
-      <div className="flex justify-center items-center gap-1 rounded-lg px-1 border border-background-500">
+      {/* <div className="flex justify-center items-center gap-1 rounded-lg px-1 border border-background-500">
         <Search className="size-3 text-text" />
         <input
           type="text"
           className="text-sm py-1 outline-none w-50 transition-all duration-300 focus:outline-none"
           placeholder="Search by title or #tag..."
         />
-      </div>
+      </div> */}
       <div className="flex gap-3">
         <SelectMenu
           value={priorityFilter}
