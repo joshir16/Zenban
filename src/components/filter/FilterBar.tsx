@@ -68,8 +68,8 @@ export default function FilterBar({
           className={`text-sm flex justify-center items-center gap-1 px-2 py-1 rounded-lg border border-background-500 border-${current.color} bg-${current.color}/10 hover:bg-background-500/5 transition-all duration-200`}
           onClick={handleSortButton}
         >
-          <span className={`text-${current.color}`}>{current.text}</span>
           <Icon className={`size-4 text-${current.color}`} />
+          <span className={`text-${current.color}`}>{current.text}</span>
         </button>
       </div>
     </div>

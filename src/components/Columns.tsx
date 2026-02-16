@@ -57,7 +57,7 @@ function Columns({
     <>
       <div
         // className="min-h-[15%] md:min-h-1/3 lg:h-full flex-1 min-w-60 bg-columns flex-wrap border border-background-500 border-dashed border-primary/50"
-        className="flex flex-col min-h-[40%] md:h-full min-w-60 grow bg-columns"
+        className="flex flex-col h-50 md:h-80 lg:h-full min-w-60 grow bg-columns"
         onDragOver={(e) => handleDragOver(e)}
         onDrop={() => handleDrop(col.id as Card["status"])}
       >
