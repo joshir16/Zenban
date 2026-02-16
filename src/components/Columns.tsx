@@ -49,7 +49,9 @@ function Columns({
   if (sortOrder === "alpha")
     sortedCards = filteredCards
       .slice()
-      .sort((a, b) => a.cardTitle.localeCompare(b.cardTitle));
+      .sort((a, b) =>
+        a.cardTitle.localeCompare(b.cardTitle, undefined, { numeric: true }),
+      );
 
   return (
     <>
