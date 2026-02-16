@@ -2,7 +2,6 @@ import {
   CalendarArrowUp,
   CalendarArrowDown,
   ListFilter,
-  Search,
   ArrowDownAz,
   AlertCircle,
   AlertTriangle,
