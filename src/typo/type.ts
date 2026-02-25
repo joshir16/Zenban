@@ -1,9 +1,9 @@
 export interface Card {
   cardId: string;
   cardTitle: string;
-  description: string;
+  description?: string;
   status: string;
-  priority: "low" | "medium" | "high" | "zen";
+  priority: string;
   tags: string[];
   createdOn: string;
 }
@@ -18,9 +18,8 @@ export interface Board {
 export type CardFormValues = {
   cardId: string;
   cardTitle: string;
-  description?: string;
+  description: string;
   status: string;
-  priority: "low" | "medium" | "high" | "zen";
-  tags: string[];
-  createdOn: string;
+  priority: string;
+  tags: string;
 };

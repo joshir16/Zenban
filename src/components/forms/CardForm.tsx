@@ -1,5 +1,6 @@
+import { type MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { createCard, deleteCard } from "../../store/slice/boardSlice";
+import { createCard, deleteCard } from "../../store/slice/boardSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import type { RootState } from "../../store/store";
 import getCurrentTime from "../../utils/utils";
@@ -18,8 +19,13 @@ export default function CardForm() {
   );
 
   const isEditSession = Boolean(cardDetails);
-  const { register, handleSubmit, formState } = useForm({
-    defaultValues: isEditSession ? cardDetails : {},
+  const { register, handleSubmit, formState } = useForm<CardFormValues>({
+    defaultValues: isEditSession
+      ? {
+          ...cardDetails,
+          tags: cardDetails?.tags ? cardDetails?.tags.join(", ") : "",
+        }
+      : {},
   });
   const { errors } = formState;
 
@@ -29,12 +35,21 @@ export default function CardForm() {
 
   const handleAddCard: SubmitHandler<CardFormValues> = (data) => {
     if (!boardId || !cardId) return;
+    const { cardTitle, description, status, priority, tags } = data;
+    const formattedTags = tags ? tags.split(",") : [];
 
-    console.log(data);
-    dispatch({
-      ...data,
-      type: "",
-    });
+    dispatch(
+      createCard(
+        boardId,
+        cardId,
+        cardTitle,
+        description,
+        status,
+        priority,
+        formattedTags,
+        getCurrentTime(creationDate),
+      ),
+    );
 
     navigate(`/boards/${boardId}`, { replace: true });
   };
@@ -43,13 +58,13 @@ export default function CardForm() {
     console.log(errors);
   };
 
-  // function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
-  //   e.preventDefault();
-  //   if (!boardId || !cardId) return;
+  function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (!boardId || !cardId) return;
 
-  //   dispatch(deleteCard({ boardId, cardId }));
-  //   navigate(`/boards/${boardId}`, { replace: true });
-  // }
+    dispatch(deleteCard({ boardId, cardId }));
+    navigate(`/boards/${boardId}`, { replace: true });
+  }
 
   return (
     <section className="h-full overflow-auto w-full md:w-3/4 mx-auto flex flex-col items-center">
@@ -80,7 +95,7 @@ export default function CardForm() {
         <div className="flex flex-col gap-1 relative">
           <label
             className="text-sm font-medium text-text"
-            htmlFor="cardDescription"
+            htmlFor="description"
           >
             Description
           </label>
@@ -125,8 +140,9 @@ export default function CardForm() {
             <select
               id="priority"
               className="input"
-              required
-              // onChange={(e) => setPriority(e.target.value)}
+              {...register("priority", {
+                required: "This field is required",
+              })}
             >
               <option value="zen" className="bg-background-900">
                 Zen
@@ -147,7 +163,13 @@ export default function CardForm() {
             <label className="text-sm font-medium text-text" htmlFor="status">
               Status
             </label>
-            <select id="status" className="input" value={status} required>
+            <select
+              id="status"
+              className="input"
+              {...register("status", {
+                required: "This field is required",
+              })}
+            >
               <option value="todo" className="bg-background-900">
                 To-do
               </option>
@@ -174,7 +196,7 @@ export default function CardForm() {
           <button
             type="button"
             className="primaryButton flex-1"
-            onClick={handleDeleteCard}
+            onClick={(e) => handleDeleteCard(e)}
           >
             Delete Card
           </button>
