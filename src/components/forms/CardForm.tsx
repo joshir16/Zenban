@@ -1,9 +1,10 @@
-import { useState, type FormEvent, type MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCard, deleteCard } from "../../store/slice/boardSlice";
+// import { createCard, deleteCard } from "../../store/slice/boardSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import type { RootState } from "../../store/store";
 import getCurrentTime from "../../utils/utils";
+import { useForm, type FieldErrors, type SubmitHandler } from "react-hook-form";
+import type { CardFormValues } from "../../typo/type";
 
 export default function CardForm() {
   const { boardId, cardId } = useParams();
@@ -16,67 +17,47 @@ export default function CardForm() {
       ?.cards.find((card) => card.cardId === cardId),
   );
 
-  // Initialize State
-  const [cardTitle, setCardTitle] = useState(cardDetails?.cardTitle || "");
-  const [cardDescription, setCardDescription] = useState(
-    cardDetails?.description || "",
-  );
-
-  // LOGIC FIX 1: If tags is an array in Redux, join it to string for the input
-  const [tags, setTags] = useState(
-    Array.isArray(cardDetails?.tags)
-      ? cardDetails.tags.join(", ")
-      : cardDetails?.tags || "",
-  );
-
-  const [priority, setPriority] = useState(cardDetails?.priority || "zen");
-  const [status, setStatus] = useState(cardDetails?.status || "todo");
+  const isEditSession = Boolean(cardDetails);
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: isEditSession ? cardDetails : {},
+  });
+  const { errors } = formState;
 
   const creationDate = cardDetails?.createdOn
     ? new Date(cardDetails.createdOn)
     : new Date();
 
-  function handleAddCard(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  const handleAddCard: SubmitHandler<CardFormValues> = (data) => {
     if (!boardId || !cardId) return;
 
-    // LOGIC FIX 2: Convert String -> Array before sending to Redux
-    const tagsArray = tags
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag !== "");
+    console.log(data);
+    dispatch({
+      ...data,
+      type: "",
+    });
 
-    dispatch(
-      createCard(
-        boardId,
-        cardId,
-        cardTitle,
-        cardDescription,
-        status,
-        priority,
-        tagsArray,
-        creationDate.toISOString(),
-      ),
-    );
     navigate(`/boards/${boardId}`, { replace: true });
-  }
+  };
 
-  function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (!boardId || !cardId) return;
+  const onError = (errors: FieldErrors<CardFormValues>) => {
+    console.log(errors);
+  };
 
-    dispatch(deleteCard({ boardId, cardId }));
-    navigate(`/boards/${boardId}`, { replace: true });
-  }
+  // function handleDeleteCard(e: MouseEvent<HTMLButtonElement>) {
+  //   e.preventDefault();
+  //   if (!boardId || !cardId) return;
+
+  //   dispatch(deleteCard({ boardId, cardId }));
+  //   navigate(`/boards/${boardId}`, { replace: true });
+  // }
 
   return (
     <section className="h-full overflow-auto w-full md:w-3/4 mx-auto flex flex-col items-center">
       <form
-        onSubmit={handleAddCard}
+        onSubmit={handleSubmit(handleAddCard, onError)}
         className="flex flex-col gap-8 p-5 w-full max-w-3xl"
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 relative">
           <label className="text-sm font-medium text-text" htmlFor="cardTitle">
             Title
           </label>
@@ -85,13 +66,18 @@ export default function CardForm() {
             id="cardTitle"
             placeholder="New Card title"
             className="input"
-            value={cardTitle}
-            required
-            onChange={(e) => setCardTitle(e.target.value)}
+            {...register("cardTitle", {
+              required: "This field is required",
+            })}
           />
+          {errors && (
+            <span className="text-xs sm:text-sm text-red-400/80 absolute -bottom-5 right-0">
+              {errors?.cardTitle?.message}
+            </span>
+          )}
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 relative">
           <label
             className="text-sm font-medium text-text"
             htmlFor="cardDescription"
@@ -99,16 +85,21 @@ export default function CardForm() {
             Description
           </label>
           <textarea
-            id="cardDescription"
+            id="description"
             placeholder="Add Card description"
             className="input w-full h-60"
-            value={cardDescription}
-            onChange={(e) => setCardDescription(e.target.value)}
-            required
+            {...register("description", {
+              required: "This field is required",
+            })}
           />
+          {errors && (
+            <span className="text-xs sm:text-sm text-red-400/80 absolute -bottom-5 right-0">
+              {errors?.description?.message}
+            </span>
+          )}
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 relative">
           <label className="text-sm font-medium text-text" htmlFor="tags">
             Tags
           </label>
@@ -117,9 +108,13 @@ export default function CardForm() {
             id="tags"
             placeholder="Add Tags (comma separated)"
             className="input"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
+            {...register("tags")}
           />
+          {errors && (
+            <span className="text-xs sm:text-sm text-red-400/80 absolute -bottom-5 right-0">
+              {errors?.tags?.message}
+            </span>
+          )}
         </div>
 
         <div className="flex gap-5">
@@ -130,9 +125,8 @@ export default function CardForm() {
             <select
               id="priority"
               className="input"
-              value={priority}
               required
-              onChange={(e) => setPriority(e.target.value)}
+              // onChange={(e) => setPriority(e.target.value)}
             >
               <option value="zen" className="bg-background-900">
                 Zen
@@ -153,13 +147,7 @@ export default function CardForm() {
             <label className="text-sm font-medium text-text" htmlFor="status">
               Status
             </label>
-            <select
-              id="status"
-              className="input"
-              value={status}
-              required
-              onChange={(e) => setStatus(e.target.value)}
-            >
+            <select id="status" className="input" value={status} required>
               <option value="todo" className="bg-background-900">
                 To-do
               </option>
